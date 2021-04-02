@@ -14,13 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('SuratMasuk.create');
+    return view('home');
 });
 
 Route::get('/user', function () {
     return view('Users.create');
 });
 
-Route::view('/tambah', 'viewName');
 
 Route::resource('suratmasuk','SuratmasukController');
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('home', 'HomeController@index')->name('home');
+
+
+});
