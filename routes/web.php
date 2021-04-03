@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/user', function () {
-    return view('Users.create');
-});
+// Route::get('/user', function () {
+//     return view('Users.user');
+// });
 
 
 Route::resource('suratmasuk','SuratmasukController');
@@ -28,7 +28,9 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('home', 'HomeController@index')->name('home');
+    Route::resource('user', 'UserController');
 
 
 });
+
+Route::get('home', 'HomeController@index')->name('home');
