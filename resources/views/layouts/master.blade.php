@@ -48,7 +48,7 @@
 
       <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ Auth::user()->name }} <span class="caret"></span>
+            <i class="fas fa-user-alt mr-1"></i>   {{ Auth::user()->name }} <span class="caret"></span>
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -141,21 +141,10 @@
 <script src="{{asset('adminLTE/')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap4 Duallistbox -->
 <script src="{{asset('adminLTE/')}}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
-<script src="{{asset('adminLTE/')}}/plugins/moment/moment.min.js"></script>
-<script src="{{asset('adminLTE/')}}/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- date-range-picker -->
 <script src="{{asset('adminLTE/')}}/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
 <script src="{{asset('adminLTE/')}}/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('adminLTE/')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
-<script src="{{asset('adminLTE/')}}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<!-- BS-Stepper -->
-<script src="{{asset('adminLTE/')}}/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-<!-- dropzonejs -->
-<script src="{{asset('adminLTE/')}}/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminLTE/')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->

@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -56,7 +56,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->name= $request->name;
+        $user->email= $request->email;
+        $user->password= bcrypt($request->password);
+
+        $user->save();
+
+        return redirect('user')->with('success','Data berhasil di simpan !');
     }
 
     /**
@@ -78,7 +85,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id',$id)->get();
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -90,7 +98,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->name= $request->name;
+        $user->email= $request->email;
+        $user->password= bcrypt($request->password);
+
+        $user->save();
+
+        return redirect('user')->with('success', 'Data berhasil di update !');
     }
 
     /**

@@ -5,6 +5,8 @@
 
 @section('content')
 
+<a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+
 <!-- Default box -->
 <div class="card mb-4">
     <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Data Users</div>
@@ -24,6 +26,7 @@
     </div>
 </div>
   <!-- /.card -->
+
 
   <script>
     $(document).ready(function(){

@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-// Route::get('/user', function () {
-//     return view('Users.user');
-// });
+Route::get('/tambah', function () {
+    return view('users.create');
+});
 
 
 Route::resource('suratmasuk','SuratmasukController');
