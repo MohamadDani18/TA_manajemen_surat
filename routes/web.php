@@ -29,6 +29,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('user', 'UserController');
+    Route::resource('suratmasuk', 'SuratmasukController');
+    Route::resource('jenissurat', 'JenissuratController');
 
 
 });

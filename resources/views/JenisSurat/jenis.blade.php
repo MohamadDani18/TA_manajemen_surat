@@ -1,21 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'user')
-
+@section('title', 'Jenis Surat')
 
 @section('content')
 
-<!-- Default box -->
 <div class="card mb-4">
-    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Data Users  <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
+    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Data Jenis Surat <a href="{{ route('jenissurat.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered data-table">
+            <table class="table table-bordered" id="data-table">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
+                        <th>Jenis Surat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -23,21 +20,18 @@
         </div>
     </div>
 </div>
-  <!-- /.card -->
-
-
-  <script>
-    $(document).ready(function(){
-        var table = $('.data-table').DataTable({
+<script type="text/javascript">
+    $(function() {
+        var table = $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            autoWidth: true,
-            ajax: {url:"{{ route('user.index') }}"},
+            ajax: {
+                url: '{{ route("jenissurat.index") }}'
+            },
             columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'action', name: 'action',orderable : false, searchable: false}
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'jenis_surat', name: 'jenis_surat'},
+            {data: 'action', name: 'action',orderable : false, searchable: false}
             ]
           });
         });

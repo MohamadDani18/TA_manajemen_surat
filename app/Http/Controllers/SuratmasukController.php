@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Suratmasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use SweetAlert;
+use DataTables;
 
 class SuratmasukController extends Controller
 {

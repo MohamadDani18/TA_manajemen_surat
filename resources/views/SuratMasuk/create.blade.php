@@ -20,26 +20,27 @@
     </div>
     <div class="card-body">
       <!-- form start -->
+      @csrf
       <form role="form">
         <div class="box-body">
             <div class="form-row">
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
             <label for="">Asal Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Asal Surat">
+            <input type="text" name="asal_surat" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Asal Surat">
           </div>
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
             <label for="">No Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="No Surat">
+            <input type="text" name="no_surat" class="form-control form-control-border border-width-2" id="" placeholder="No Surat">
           </div>
 
           <div class="form-group col-md-6">
             <label for="">Penerima Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Penerima Surat">
+            <input type="text" name="penerima_surat" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Penerima Surat">
           </div>
 
           <div class="form-group col-md-6">
             <label>Jenis Surat</label>
-            <select class="form-control select2bs4" style="width: 100%;">
+            <select class="form-control select2bs4" name="jenis_surat" style="width: 100%;">
               <option selected="selected">Pilih jenis</option>
               <option>Resmi</option>
               <option>Tidak Resmi</option>
@@ -54,7 +55,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
               </div>
-              <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+              <input type="date" name="tanggal_surat" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
             </div>
             <!-- /.input group -->
           </div>
@@ -63,7 +64,7 @@
             <label for="exampleInputFile">File input</label>
             <div class="input-group">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile">
+                <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>
               </div>
               <div class="input-group-append">
@@ -75,7 +76,7 @@
           <!-- textarea -->
           <div class="form-group col-md-6">
             <label>Isi Ringkas</label>
-            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+            <textarea class="form-control" name="isi_ringkas" rows="3" placeholder="Enter ..."></textarea>
           </div>
         <!-- /.box-body -->
       </form>
