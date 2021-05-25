@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.master')
 
 @section('title', 'Tambah')
 
@@ -20,64 +20,62 @@
     </div>
     <div class="card-body">
       <!-- form start -->
-      @csrf
-      <form role="form">
+      <form action="{{ route('suratmasuk.store') }}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="box-body">
             <div class="form-row">
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
             <label for="">Asal Surat</label>
-            <input type="text" name="asal_surat" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Asal Surat">
+                    <input value="{{old('asal_surat')}}" name="asal_surat" type="text" class="form-control bg-light"
+                         placeholder="Asal Surat" required>
           </div>
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="">No Surat</label>
-            <input type="text" name="no_surat" class="form-control form-control-border border-width-2" id="" placeholder="No Surat">
+            <label for="">Nomor Surat</label>
+                    <input value="{{old('no_surat')}}" name="no_surat" type="text" class="form-control bg-light"
+                         placeholder="Nomor Surat" required>
           </div>
 
           <div class="form-group col-md-6">
             <label for="">Penerima Surat</label>
-            <input type="text" name="penerima_surat" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Penerima Surat">
+            <input value="{{old('penerima_surat')}}" name="penerima_surat" type="text" class="form-control bg-light"
+                         placeholder="Penerima Surat" required>
           </div>
 
           <div class="form-group col-md-6">
-            <label>Jenis Surat</label>
-            <select class="form-control select2bs4" name="jenis_surat" style="width: 100%;">
-              <option selected="selected">Pilih jenis</option>
-              <option>Resmi</option>
-              <option>Tidak Resmi</option>
-            </select>
-          </div>
-
-          <!-- Date dd/mm/yyyy -->
-          <div class="form-group col-md-6">
-            <label>Date </label>
-
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-              </div>
-              <input type="date" name="tanggal_surat" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-            </div>
-            <!-- /.input group -->
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="exampleInputFile">File input</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" name="gambar" class="custom-file-input" id="exampleInputFile">
-                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text">Upload</span>
-              </div>
-            </div>
+            <label for="">Jenis_surat</label>
+                    <select name="jenis_surat" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
+                        required>
+                        <option value="">Pilih Jenis Surat</option>
+                                @foreach ($jenis_surat as $w)
+                                    <option value="{{$w->jenis_surat}}">{{$w->jenis_surat}}</option>
+                                @endforeach
+                    </select>
           </div>
 
           <!-- textarea -->
           <div class="form-group col-md-6">
             <label>Isi Ringkas</label>
-            <textarea class="form-control" name="isi_ringkas" rows="3" placeholder="Enter ..."></textarea>
+            <textarea name="isi_ringkas" class="form-control bg-light"  rows="3"
+                        placeholder="Isi Ringkas Surat Masuk" required>{{old('isi_ringkas')}}</textarea>
           </div>
+
+          <!-- Date dd/mm/yyyy -->
+          <div class="form-group col-md-6">
+            <label for="">Tanggal Surat</label>
+                    <input value="{{old('tanggal_surat')}}" name="tanggal_surat" type="date" class="form-control bg-light" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Gambar :</label>
+            <input type="file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror">
+            @error('gambar')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
+            
+
         <!-- /.box-body -->
       </form>
     </div>
@@ -91,13 +89,6 @@
   </div>
   <!-- /.card -->
 
-  <script>
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-</script>
+
 
 @endsection

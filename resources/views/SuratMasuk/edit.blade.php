@@ -1,92 +1,109 @@
-@extends('layout.master')
+@extends('layouts.master')
 
-@section('title', 'Tambah')
+@section('title', 'Edit Surat Masuk')
 
 
 @section('content')
-<!-- Default box -->
-<div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Edit Data Surat Masuk</h3>
 
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-          <i class="fas fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
-    <div class="card-body">
-      <!-- form start -->
-      <form role="form">
-        <div class="box-body">
-            <div class="form-row">
-          <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="exampleInputEmail1">Asal Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Asal Surat">
-          </div>
-          <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="">No Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="No Surat">
-          </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Penerima Surat</label>
-            <input type="text" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Penerima Surat">
-          </div>
 
-          <div class="form-group col-md-6">
-            <label>Jenis Surat</label>
-            <select class="form-control select2bs4" style="width: 100%;">
-              <option selected="selected">Pilih jenis</option>
-              <option>Resmi</option>
-              <option>Tidak Resmi</option>
-            </select>
-          </div>
-
-          <!-- Date dd/mm/yyyy -->
-          <div class="form-group col-md-6">
-            <label>Date </label>
-
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-              </div>
-              <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-            </div>
-            <!-- /.input group -->
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="exampleInputFile">File input</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile">
-                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text">Upload</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- textarea -->
-          <div class="form-group col-md-6">
-            <label>Isi Ringkas</label>
-            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-          </div>
-        <!-- /.box-body -->
-      </form>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-        <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="card">
+        <div class="card-body">
+            @foreach ($suratmasuk as $w)
+            <form action="{{ route('suratmasuk.update', [$w->id]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    {{ method_field('PUT') }}
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Asal Surat :</label>
+                        <input type="text" name="asal_surat" class="form-control @error('asal_surat') is-invalid @enderror"  value="{{$w->asal_surat}}" autocomplete="off">
+                        @error('asal_surat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Nomer Surat :</label>
+                        <input type="text" name="no_surat" class="form-control @error('no_surat') is-invalid @enderror"  value="{{$w->no_surat}}" autocomplete="off">
+                        @error('no_surat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Penerima Surat :</label>
+                        <input type="text" name="penerima_surat" class="form-control @error('penerima_surat') is-invalid @enderror"  value="{{$w->penerima_surat}}" autocomplete="off">
+                        @error('penerima_surat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Jenis Surat :</label>
+                            <select name="jenis_surat" class="form-control" id="">
+                                    <option value="">Pilih Jenis Surat</option>
+                                @foreach ($jenis_surat as $item)
+                                    <option value="{{$item->jenis_surat}}"
+                                    @if ($w->jenis_surat == $item->jenis_surat)
+                                        selected
+                                    @endif
+                                        >{{$item->jenis_surat}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Isi ringkas :</label>
+                            <textarea name="isi_ringkas" rows="3" class="form-control @error('isi_ringkas') is-invalid @enderror">{{$w->isi_ringkas}}</textarea>
+                            @error('isi_ringkas')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Tanggal Surat :</label>
+                            <input type="date" name="tanggal_surat" class="form-control" value="{{$w->tanggal_surat}}" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <hr>
+                        @if($w->gambar)
+                            <img width="25%" src="{{asset('/storage/'.$w->gambar)}}">
+                        @else
+                            <img src="" alt="" width="25%">
+                        @endif
+                        <hr>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Ubah Gambar :</label>
+                            <input type="file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" autocomplete="off">
+                            @error('gambar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                <button type="submit" class="btn btn-success mt-2">Update</button>
+            </form>
         </div>
     </div>
-    <!-- /.card-footer-->
-  </div>
-  <!-- /.card -->
+
 @endsection

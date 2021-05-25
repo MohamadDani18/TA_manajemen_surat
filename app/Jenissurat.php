@@ -8,10 +8,9 @@ class Jenissurat extends Model
 {
     protected $table="Jenissurat";
 
-    protected $fillable= [
-
-        'id','jenis_surat','provider', 'provider_id'
-
-    ];
+    public function suratmasuk()
+    {
+        return $this->hasMany('App\Suratmasuk');
+    }
 
 }

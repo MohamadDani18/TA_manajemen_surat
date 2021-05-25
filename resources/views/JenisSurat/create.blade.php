@@ -28,7 +28,7 @@
             <label for="">Nama</label>
             <input type="text" name="jenis_surat" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Nama">
           </div>
-
+            
         <!-- /.box-body -->
       </form>
     </div>

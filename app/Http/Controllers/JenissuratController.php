@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jenissurat;
+use App\Suratmasuk;
 use Illuminate\Http\Request;
 use SweetAlert;
 use Illuminate\Support\Facades\DB;
@@ -70,9 +71,11 @@ class JenissuratController extends Controller
      * @param  \App\Jenissurat  $jenissurat
      * @return \Illuminate\Http\Response
      */
-    public function show(Jenissurat $jenissurat)
+    public function show($id)
     {
-        //
+        $suratmasuk = Suratmasuk::where('jenissurat_id',$id)->get();
+        // $wilayah = Wilayah::where('id',$id)->get();
+        // return view('wilayah.detail', ['wilayah' => $wilayah], ['wisata' => $wisata]);
     }
 
     /**
