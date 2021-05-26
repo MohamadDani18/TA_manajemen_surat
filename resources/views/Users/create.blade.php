@@ -5,19 +5,8 @@
 
 @section('content')
 <!-- Default box -->
-<div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Tambah Data User</h3>
-
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-          <i class="fas fa-minus"></i>
-        </button>
-        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
+<div class="card mb-4">
+    <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Tambah User</div>
     <div class="card-body">
       <!-- form start -->
       <form action="{{ route('user.store') }}" method="post">
