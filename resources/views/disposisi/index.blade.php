@@ -7,17 +7,17 @@
 
 <!-- Default box -->
 <div class="card mb-4">
-    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Surat Masuk  <a href="{{ route('suratkeluar.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
+    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Disposisi <a href="{{ route('disposisi.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered data-table">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tujuan Surat</th>
-                        <th>No Surat</th>
-                        <th>Tanggal Surat</th>
-                        <th>Jenis Surat</th>
+                        <th>Tujuan Disposisi</th>
+                        <th>Isi Disposisi</th>
+                        <th>Sifat</th>
+                        <th>Batas waktu</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,13 +34,13 @@
             processing: true,
             serverSide: true,
             autoWidth: false,
-            ajax: {url:"{{ route('suratkeluar.index') }}"},
+            ajax: {url:"{{ route('disposisi.index') }}"},
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'tujuan_surat', name: 'tujuan_surat'},
-                {data: 'no_surat', name: 'no_surat'},
-                {data: 'tanggal_surat', name: 'tanggal_surat'},
-                {data: 'jenis_surat', name: 'jenis_surat'},
+                {data: 'tujuan_disposisi', name: 'tujuan_disposisi'},
+                {data: 'isi_disposisi', name: 'isi_disposisi'},
+                {data: 'sifat', name: 'sifat'},
+                {data: 'batas_waktu', name: 'batas_waktu'},
                 {data: 'action', name: 'action',orderable : false, searchable: false}
             ]
           });

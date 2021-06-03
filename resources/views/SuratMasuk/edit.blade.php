@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Edit Surat Masuk')
+@section('title')
 
 
 @section('content')

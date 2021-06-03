@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use SweetAlert;
 use DataTables;
 use Storage;
+use PDF;
 
 class SuratmasukController extends Controller
 {
@@ -156,4 +157,5 @@ class SuratmasukController extends Controller
         Suratmasuk::destroy($id);
         return redirect('suratmasuk')->with('success', 'Data berhasil di delete !');
     }
+
 }

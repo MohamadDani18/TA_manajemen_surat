@@ -26,8 +26,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('suratmasuk', 'SuratmasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('jenissurat', 'JenissuratController');
+    Route::resource('disposisi', 'DisposisiController');
 
     Route::get('home', 'HomeController@index')->name('home');
+    
 });
 
 
