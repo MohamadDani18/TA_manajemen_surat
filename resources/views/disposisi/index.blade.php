@@ -14,10 +14,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tujuan Disposisi</th>
-                        <th>Isi Disposisi</th>
-                        <th>Sifat</th>
-                        <th>Batas waktu</th>
+                        <th>Nomer Agenda</th>
+                        <th>Nomer Surat</th>
+                        <th>Kepada</th>
+                        <th>Keterangan</th>
+                        <th>Tanggapan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,10 +38,11 @@
             ajax: {url:"{{ route('disposisi.index') }}"},
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'tujuan_disposisi', name: 'tujuan_disposisi'},
-                {data: 'isi_disposisi', name: 'isi_disposisi'},
-                {data: 'sifat', name: 'sifat'},
-                {data: 'batas_waktu', name: 'batas_waktu'},
+                {data: 'no_agenda', name: 'no_agenda'},
+                {data: 'surat_id', name: 'surat_id'},
+                {data: 'kepada', name: 'kepada'},
+                {data: 'keterangan', name: 'keterangan'},
+                {data: 'tanggapan', name: 'tanggapan'},
                 {data: 'action', name: 'action',orderable : false, searchable: false}
             ]
           });

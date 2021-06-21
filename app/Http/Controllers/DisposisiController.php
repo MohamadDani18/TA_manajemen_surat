@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Disposisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use SweetAlert;
 use DataTables;
 use Storage;
+use App\Suratkeluar;
+use App\Suratmasuk;
+use App\User;
 
 class DisposisiController extends Controller
 {
@@ -47,7 +51,8 @@ class DisposisiController extends Controller
      */
     public function create()
     {
-        return view('disposisi.create');
+        $suratmasuk = Suratmasuk::all();
+        return view('disposisi.create', compact('suratmasuk'));
     }
 
     /**
@@ -60,11 +65,13 @@ class DisposisiController extends Controller
     {
 
         $disposisi = new Disposisi();
-        $disposisi->id_surat    = $request->input('id_surat');
-        $disposisi->tujuan_disposisi    = $request->input('tujuan_disposisi');
-        $disposisi->isi_disposisi    = $request->input('isi_disposisi');
-        $disposisi->sifat  = $request->input('sifat');
-        $disposisi->batas_waktu  = $request->input('batas_waktu');
+        $disposisi->no_agenda    = $request->input('no_agenda');
+        $disposisi->surat_id    = $request->input('surat_id');
+        $disposisi->kepada    = $request->input('kepada');
+        $disposisi->keterangan  = $request->input('keterangan');
+        $disposisi->tanggapan  = $request->input('tanggapan');
+        $disposisi->user_id  = Auth::id();
+
 
         $disposisi->save();
         return redirect('disposisi')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");

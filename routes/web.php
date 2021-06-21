@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function () {
 
     Route::resource('user', 'UserController');
     Route::resource('suratmasuk', 'SuratmasukController');
@@ -28,8 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('jenissurat', 'JenissuratController');
     Route::resource('disposisi', 'DisposisiController');
 
+
     Route::get('home', 'HomeController@index')->name('home');
-    
+
+    //disposisi
+
+
 });
-
-

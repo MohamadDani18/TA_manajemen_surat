@@ -15,11 +15,12 @@ class CreateDisposisiTable extends Migration
     {
         Schema::create('disposisi', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_surat');
-            $table->string('tujuan_disposisi');
-            $table->text('isi_disposisi');
-            $table->string('sifat');
-            $table->date('batas_waktu');
+            $table->string('no_agenda');
+            $table->integer('surat_id')->unsigned();
+            $table->string('kepada');
+            $table->text('keterangan');
+            $table->string('tanggapan');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

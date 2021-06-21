@@ -14,33 +14,49 @@
         <div class="box-body">
             <div class="form-row">
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="">ID surat</label>
-                    <input value="{{old('id_surat')}}" name="id_surat" type="text" class="form-control bg-light"
-                         placeholder="ID surat" required>
+            <label for="">Nomer Agenda</label>
+                    <input value="{{old('no_agenda')}}" name="no_agenda" type="text" class="form-control bg-light"
+                         placeholder="Nomer Agenda" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Nomer Surat</label>
+                    <select name="surat_id" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
+                        required>
+                        <option value="">Pilih Nomer Surat</option>
+                                @foreach ($suratmasuk as $w)
+                                    <option value="{{$w->id}}">{{$w->no_surat}}</option>
+                                @endforeach
+                    </select>
           </div>
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="">Tujuan Disposisi</label>
-                    <input value="{{old('tujuan_disposisi')}}" name="tujuan_disposisi" type="text" class="form-control bg-light"
+            <label for="">Kepada</label>
+                    <input value="{{old('kepada')}}" name="kepada" type="text" class="form-control bg-light"
                          placeholder="Tujuan Disposisi" required>
           </div>
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
             <label for="">Sifat</label>
-                    <input value="{{old('sifat')}}" name="sifat" type="text" class="form-control bg-light"
-                         placeholder="Isi Sifat" required>
+                    <input value="{{old('keterangan')}}" name="keterangan" type="text" class="form-control bg-light"
+                         placeholder="keterangan disposisi" required>
+          </div>
+
+          <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label for="">Sifat</label>
+                    <input value="{{old('tanggapan')}}" name="tanggapan" type="text" class="form-control bg-light"
+                         placeholder="tanggapan disposisi" required>
           </div>
 
           <!-- Date dd/mm/yyyy -->
-          <div class="form-group col-md-6">
+          {{-- <div class="form-group col-md-6">
             <label for="">Batas Waktu</label>
                     <input value="{{old('batas_waktu')}}" name="batas_waktu" type="date" class="form-control bg-light" required>
-          </div>
+          </div> --}}
 
           <!-- textarea -->
-          <div class="form-group col-md-6">
+          {{-- <div class="form-group col-md-6">
             <label>Isi Disposisi</label>
             <textarea name="isi_disposisi" class="form-control bg-light"  rows="3"
                         placeholder="Isi Disposisi" required>{{old('isi_disposisi')}}</textarea>
-          </div>
+          </div> --}}
 
 
         <!-- /.box-body -->
