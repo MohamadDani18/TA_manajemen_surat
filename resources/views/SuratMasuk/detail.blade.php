@@ -38,7 +38,7 @@
                         <td>{{$w->isi_ringkas}}</td>
                     </tr>
                     <tr>
-                        <th>Foto</th>
+                        <th>File</th>
                         <td>
                             @if($w->gambar)
                             <img width="25%" src="{{asset('/storage/'.$w->gambar)}}">

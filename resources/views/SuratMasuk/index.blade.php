@@ -7,7 +7,9 @@
 
 <!-- Default box -->
 <div class="card mb-4">
-    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Surat Masuk  <a href="{{ route('suratmasuk.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
+    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Surat Masuk
+        <a href="{{ route('suratmasuk.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a>
+        <a href="{{ route('cetak-laporan') }}" target="blank" class="btn btn-success btn-sm pull-right ml-2">Cetak Data</a></div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered data-table">

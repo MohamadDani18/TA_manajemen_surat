@@ -18,8 +18,9 @@ class CreateDisposisiTable extends Migration
             $table->string('no_agenda');
             $table->integer('surat_id')->unsigned();
             $table->string('kepada');
-            $table->text('keterangan');
-            $table->string('tanggapan');
+            $table->string('sifat');
+            $table->string('catatan');
+            $table->string('batas_waktu');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

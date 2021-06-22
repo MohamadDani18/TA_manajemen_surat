@@ -5,9 +5,9 @@
 
 @section('content')
 <!-- Default box -->
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-      <h3 class="card-title">Tambah Data Surat Masuk</h3>
+      <h3 class="card-title"><i class="far fa-list-alt mr-1"></i></i>Tambah Data Surat Masuk</h3>
 
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -36,9 +36,9 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label for="">Penerima Surat</label>
+            <label for="">Perihal Surat</label>
             <input value="{{old('penerima_surat')}}" name="penerima_surat" type="text" class="form-control bg-light"
-                         placeholder="Penerima Surat" required>
+                         placeholder="Perihal Surat" required>
           </div>
 
           <div class="form-group col-md-6">

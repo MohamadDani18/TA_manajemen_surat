@@ -53,6 +53,25 @@ class SuratmasukController extends Controller
         return view('SuratMasuk.create', ['jenis_surat' => $jenissurat]);
     }
 
+    public function cetakLaporan()
+    {
+        $jenissurat = Jenissurat::all();
+        $suratmasuk = Suratmasuk::get();
+        return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
+    }
+
+    public function cetakForm()
+    {
+        return view('SuratMasuk.cetak-laporan-form');
+    }
+
+    public function cetakLaporanFilter($tglawal, $tglakhir)
+    {
+        // dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
+        $suratmasuk = Suratmasuk::get()->whereBetween('tanggal_surat', [$tglawal, $tglakhir]);
+        return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

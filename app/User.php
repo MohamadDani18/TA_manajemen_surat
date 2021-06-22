@@ -19,11 +19,6 @@ class User extends Authenticatable
         'name', 'email','role', 'password', 'provider', 'provider_id', 'email_verified_at'
     ];
 
-    public function disposisi ()
-    {
-        return $this->hasMany('App\Disposisi');
-    }
-
     /**
      * The attributes that should be hidden for arrays.
      *

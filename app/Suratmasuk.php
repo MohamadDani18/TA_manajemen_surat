@@ -23,7 +23,7 @@ class Suratmasuk extends Model
 
     public function disposisi ()
     {
-        return $this->hasMany('App\Disposisi');
+        return $this->hasOne('App\Disposisi');
     }
 
 }

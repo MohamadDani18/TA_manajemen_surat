@@ -23,8 +23,8 @@
                     <select name="surat_id" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
                         required>
                         <option value="">Pilih Nomer Surat</option>
-                                @foreach ($suratmasuk as $w)
-                                    <option value="{{$w->id}}">{{$w->no_surat}}</option>
+                                @foreach ($suratmasuk as $s)
+                                    <option value="{{$s->no_surat}}">{{$s->no_surat}}</option>
                                 @endforeach
                     </select>
           </div>
@@ -35,21 +35,21 @@
           </div>
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
             <label for="">Sifat</label>
-                    <input value="{{old('keterangan')}}" name="keterangan" type="text" class="form-control bg-light"
-                         placeholder="keterangan disposisi" required>
+                    <input value="{{old('sifat')}}" name="sifat" type="text" class="form-control bg-light"
+                         placeholder="segera" required>
           </div>
 
           <div class="form-group col-xs-12 col-sm-12 col-md-6">
-            <label for="">Sifat</label>
-                    <input value="{{old('tanggapan')}}" name="tanggapan" type="text" class="form-control bg-light"
+            <label for="">catatan</label>
+                    <input value="{{old('catatan')}}" name="catatan" type="text" class="form-control bg-light"
                          placeholder="tanggapan disposisi" required>
           </div>
 
           <!-- Date dd/mm/yyyy -->
-          {{-- <div class="form-group col-md-6">
+          <div class="form-group col-md-6">
             <label for="">Batas Waktu</label>
                     <input value="{{old('batas_waktu')}}" name="batas_waktu" type="date" class="form-control bg-light" required>
-          </div> --}}
+          </div>
 
           <!-- textarea -->
           {{-- <div class="form-group col-md-6">

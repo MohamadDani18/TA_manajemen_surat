@@ -63,13 +63,19 @@ class DisposisiController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+
+        // 'surat_id'   => 'unique:disposisi',
+
+        // ]);
 
         $disposisi = new Disposisi();
         $disposisi->no_agenda    = $request->input('no_agenda');
         $disposisi->surat_id    = $request->input('surat_id');
         $disposisi->kepada    = $request->input('kepada');
-        $disposisi->keterangan  = $request->input('keterangan');
-        $disposisi->tanggapan  = $request->input('tanggapan');
+        $disposisi->sifat  = $request->input('sifat');
+        $disposisi->catatan  = $request->input('catatan');
+        $disposisi->batas_waktu  = $request->input('batas_waktu');
         $disposisi->user_id  = Auth::id();
 
 
@@ -118,8 +124,9 @@ class DisposisiController extends Controller
      * @param  \App\Disposisi  $disposisi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Disposisi $disposisi)
+    public function destroy($id)
     {
-        //
+        Disposisi::destroy($id);
+        return redirect('disposisi')->with('success', 'Data berhasil di delete !');
     }
 }

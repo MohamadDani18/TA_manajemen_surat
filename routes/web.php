@@ -30,7 +30,9 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('home', 'HomeController@index')->name('home');
-
+    Route::get('/cetak-laporan', 'SuratmasukController@cetakLaporan')->name('cetak-laporan');
+    Route::get('/cetak-laporan-form', 'SuratmasukController@cetakForm')->name('cetak-laporan-form');
+    Route::get('/cetak-laporan-filter/{tglawal}/{tglakhir}', 'SuratmasukController@cetakLaporanFilter')->name('cetak-laporan-filter');
     //disposisi
 
 

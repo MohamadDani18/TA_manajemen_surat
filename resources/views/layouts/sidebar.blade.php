@@ -11,6 +11,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-plus"></i>
+              <p>
+                Buat Surat
+              </p>
+            </a>
+          </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -55,7 +63,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>
           <p>
             Laporan Surat

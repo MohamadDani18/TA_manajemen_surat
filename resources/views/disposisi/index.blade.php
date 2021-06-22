@@ -17,8 +17,9 @@
                         <th>Nomer Agenda</th>
                         <th>Nomer Surat</th>
                         <th>Kepada</th>
-                        <th>Keterangan</th>
-                        <th>Tanggapan</th>
+                        <th>Sifat</th>
+                        <th>Catatan</th>
+                        <th>Batas_waktu</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -41,8 +42,9 @@
                 {data: 'no_agenda', name: 'no_agenda'},
                 {data: 'surat_id', name: 'surat_id'},
                 {data: 'kepada', name: 'kepada'},
-                {data: 'keterangan', name: 'keterangan'},
-                {data: 'tanggapan', name: 'tanggapan'},
+                {data: 'sifat', name: 'sifat'},
+                {data: 'catatan', name: 'catatan'},
+                {data: 'batas_waktu', name: 'batas_waktu'},
                 {data: 'action', name: 'action',orderable : false, searchable: false}
             ]
           });

@@ -14,7 +14,6 @@ class Disposisi extends Model
         return $this->belongsTo('App\Suratmasuk');
     }
 
-
     public function user ()
     {
         return $this->belongsTo('App\User');
