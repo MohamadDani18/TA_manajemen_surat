@@ -72,6 +72,14 @@
       </li>
       @elseif (Auth::user()->role == '2')
       <li class="nav-item">
+        <a href="/home" class="nav-link">
+          <i class="nav-icon fas fa-list-alt"></i>
+          <p>
+            Beranda
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-plus"></i>
           <p>
@@ -105,6 +113,14 @@
                 </a>
               </li>
         </ul>
+      </li>
+      <li class="nav-item">
+        <a href="/cetak-laporan-form" class="nav-link">
+          <i class="nav-icon fas fa-list-alt"></i>
+          <p>
+            Laporan Surat
+          </p>
+        </a>
       </li>
       @elseif (Auth::user()->role == '3')
       <li class="nav-header">MISCELLANEOUS</li>

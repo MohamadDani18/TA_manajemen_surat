@@ -37,3 +37,13 @@ Route::middleware('auth')->group(function () {
 
 
 });
+
+Route::group(['middleware' => ['auth','checkRole:1']], function () {
+    Route::resource('/jenissurat','JenissuratController');
+    Route::resource('/user','UserController');
+    Route::resource('/disposisi', 'DisposisiController');
+});
+
+Route::group(['middleware' => ['auth','checkRole:1, 2']], function () {
+    Route::resource('/disposisi', 'DisposisiController');
+});
