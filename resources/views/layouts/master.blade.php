@@ -155,6 +155,39 @@
 <!--alert-->
 @include('sweetalert::alert')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(function () {
+        $("#tabelSuratmasuk").DataTable();
+        $("#tabelSuratkeluar").DataTable();
+        $("#tabelAgendaMasuk").DataTable();
+        $("#tabelAgendaKeluar").DataTable();
+        $("#tabelKlasifikasi").DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+        });
+    });
+
+    $(function () {
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.filter-container').filterizr({
+            gutterPixels: 3
+        });
+        $('.btn[data-filter]').on('click', function () {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
 <!-- Page specific script -->
 
 </body>

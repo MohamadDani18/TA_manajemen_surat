@@ -6,9 +6,6 @@ use App\Disposisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use SweetAlert;
-use DataTables;
-use Storage;
 use App\Suratkeluar;
 use App\Suratmasuk;
 use App\User;
@@ -20,28 +17,11 @@ class DisposisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(SuratMasuk $suratmasuk)
     {
-        if($request->ajax()){
-            $data = Disposisi::latest()->get();
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function($data){
-                    $c = csrf_field();
-                    return '
-                        <form action="'.route('disposisi.destroy', $data->id).'" method="post"
-                        id="data'. $data->id.'">
-                        '.$c.'
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form>
-                        <a href="'.route('disposisi.show', $data->id).'" class="btn btn-primary btn-sm"><i class="fas fa-file-archive"></i><span>&nbsp;Show</span></a>
-                            <a href="'.route('disposisi.edit', $data->id).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>
-                            <button onclick="deleteData('. $data->id .')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Delete</button>
-                        ';
-                })
-            ->RawColumns(['action'])
-            ->make(true);
-        }
-        return view('disposisi.index');
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $disp = DB::select('select * from disposisis where suratmasuk_id = ?', [$suratmasuk->id]);
+        return view('disposisi.index', compact('smasuk','disp'));
     }
 
     /**
@@ -49,10 +29,10 @@ class DisposisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(SuratMasuk $suratmasuk)
     {
-        $suratmasuk = Suratmasuk::all();
-        return view('disposisi.create', compact('suratmasuk'));
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        return view('disposisi.create', compact('smasuk'));
     }
 
     /**
@@ -61,28 +41,29 @@ class DisposisiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SuratMasuk $suratmasuk)
     {
-        // $request->validate([
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $this->validate($request, [
+            'tujuan'        => 'required',
+            'isi'           => 'required',
+            'sifat'         => 'required',
+            'batas_waktu'   => 'required',
+            'catatan'       => 'required',
+        ]);
 
-        // 'surat_id'   => 'unique:disposisi',
+        $disp = Disposisi::create([
+            'tujuan'          => $request->tujuan,
+            'isi'             => $request->isi,
+            'sifat'           => $request->sifat,
+            'batas_waktu'     => $request->batas_waktu,
+            'catatan'         => $request->catatan,
+            'users_id'        => Auth::id(),
+            'suratmasuk_id'   => $suratmasuk->id,
+        ]);
 
-        // ]);
-
-        $disposisi = new Disposisi();
-        $disposisi->no_agenda    = $request->input('no_agenda');
-        $disposisi->surat_id    = $request->input('surat_id');
-        $disposisi->kepada    = $request->input('kepada');
-        $disposisi->sifat  = $request->input('sifat');
-        $disposisi->catatan  = $request->input('catatan');
-        $disposisi->batas_waktu  = $request->input('batas_waktu');
-        $disposisi->user_id  = Auth::id();
-
-
-        $disposisi->save();
-        return redirect('disposisi')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");
-
-     }
+        return redirect()->route('disposisi.index', [$smasuk])->with('sukses', 'Data Disposisi Berhasil ditambahkan');
+    }
 
     /**
      * Display the specified resource.
@@ -101,21 +82,45 @@ class DisposisiController extends Controller
      * @param  \App\Disposisi  $disposisi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Disposisi $disposisi)
+    public function edit(SuratMasuk $suratmasuk, $id)
     {
-        //
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $disp = Disposisi::findorfail($id);
+        return view('disposisi.edit', compact('disp','smasuk'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Disposisi  $disposisi
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Disposisi $disposisi)
+    public function update(Request $request, SuratMasuk $suratmasuk, $id)
     {
-        //
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $disp = Disposisi::findorfail($id);
+        $this->validate($request, [
+            'tujuan'        => 'required',
+            'isi'           => 'required',
+            'sifat'         => 'required',
+            'batas_waktu'   => 'required',
+            'catatan'       => 'required',
+        ]);
+
+        $disp_data = [
+            'tujuan'        => $request->tujuan,
+            'isi'           => $request->isi,
+            'sifat'         => $request->sifat,
+            'batas_waktu'   => $request->batas_waktu,
+            'catatan'       => $request->catatan,
+            'users_id'      => Auth::id(),
+            'smasuk_id'     => $suratmasuk->id,
+        ];
+
+        $disp->update($disp_data);
+
+        return redirect()->route('disposisi.index', compact('smasuk'))->with('sukses','Disposisi berhasil di Simpan');
     }
 
     /**
@@ -124,9 +129,12 @@ class DisposisiController extends Controller
      * @param  \App\Disposisi  $disposisi
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SuratMasuk $suratmasuk, $id)
     {
-        Disposisi::destroy($id);
-        return redirect('disposisi')->with('success', 'Data berhasil di delete !');
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $disp = Disposisi::findorfail($id);
+        $disp->delete();
+
+        return redirect()->back()->with('sukses','Disposisi Berhasil di Hapus');
     }
 }

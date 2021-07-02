@@ -33,13 +33,13 @@
                         <td>{{$w->isi_ringkas}}</td>
                     </tr>
                     <tr>
-                        <th>Foto</th>
+                        <th>File</th>
                         <td>
-                            @if($w->gambar)
-                            <img width="25%" src="{{asset('/storage/'.$w->gambar)}}">
-                            @else
-                            <img src="https://duniatravel.co.id/wp-content/uploads/logo-wonderful-indonesia.jpg" alt="" width="25%">
-                            @endif
+                            @if($w->filemasuk!= NULL)
+                                   <img src="{{URL::to('/')}}/images/{{$suratkeluar->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
+                                @else
+                                    <h5 style="color:red">Tidak ada Gambar</h5>
+                                @endif
                         </td>
                     </tr>
 

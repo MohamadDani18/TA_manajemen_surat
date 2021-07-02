@@ -13,11 +13,11 @@
         <div class="table-responsive">
             <div class="form-group col-md-6">
                 <label for="label">Tanggal Awal :</label>
-                <input type="date" name="tglawal" id="tglawal" class="form-control bg-light">
+                <input type="date" name="tglawal" id="tglawal" class="form-control bg-light " required>
             </div>
             <div class="form-group col-md-6">
                 <label for="label">Tanggal Akhir :</label>
-                <input type="date" name="tglakhir" id="tglakhir" class="form-control bg-light">
+                <input type="date" name="tglakhir" id="tglakhir" class="form-control bg-light" required>
             </div>
             <div class="form-group col-md-6">
                 <a href="" onclick="this.href='/cetak-laporan-filter/'+ document.getElementById('tglawal').value

@@ -20,30 +20,34 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth','checkRole:1, 2, 3']], function () {
 
     Route::resource('user', 'UserController');
-    Route::resource('suratmasuk', 'SuratmasukController');
+    Route::resource('suratmasuk', 'SuratMasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('jenissurat', 'JenissuratController');
-    Route::resource('disposisi', 'DisposisiController');
+    Route::resource('klasifikasi', 'KlasifikasiController');
+    Route::resource('disposisis', 'DisposisisController');
 
+    //disposisi
+    Route::get('/disposisi/{suratmasuk}', 'DisposisiController@index')->name('disposisi.index');
+    Route::post('/disposisi/{suratmasuk}', 'DisposisiController@store')->name('disposisi.store');
+    Route::get('/disposisi/{suratmasuk}/create', 'DisposisiController@create')->name('disposisi.create');
+    Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
+    Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
+    Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
 
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('/cetak-laporan', 'SuratmasukController@cetakLaporan')->name('cetak-laporan');
     Route::get('/cetak-laporan-form', 'SuratmasukController@cetakForm')->name('cetak-laporan-form');
     Route::get('/cetak-laporan-filter/{tglawal}/{tglakhir}', 'SuratmasukController@cetakLaporanFilter')->name('cetak-laporan-filter');
-    //disposisi
 
-
-});
-
-Route::group(['middleware' => ['auth','checkRole:1']], function () {
-    Route::resource('/jenissurat','JenissuratController');
-    Route::resource('/user','UserController');
-    Route::resource('/disposisi', 'DisposisiController');
 });
 
 Route::group(['middleware' => ['auth','checkRole:1, 2']], function () {
-    Route::resource('/disposisi', 'DisposisiController');
+    Route::resource('/jenissurat','JenissuratController');
+    Route::resource('/user','UserController');
+
 });
+
+

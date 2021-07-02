@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Suratmasuk;
+use App\SuratMasuk;
 use App\Jenissurat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use SweetAlert;
 use DataTables;
 use Storage;
@@ -18,39 +19,101 @@ class SuratmasukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->ajax()){
-            $data = Suratmasuk::latest()->get();
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function($data){
-                    $c = csrf_field();
-                    return '
-                        <form action="'.route('suratmasuk.destroy', $data->id).'" method="post"
-                        id="data'. $data->id.'">
-                        '.$c.'
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form>
-                        <a href="'.route('suratmasuk.show', $data->id).'" class="btn btn-primary btn-sm"><i class="fas fa-file-archive"></i><span>&nbsp;Show</span></a>
-                            <a href="'.route('suratmasuk.edit', $data->id).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>
-                            <button onclick="deleteData('. $data->id .')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Delete</button>
-                        ';
-                })
-            ->RawColumns(['action'])
-            ->make(true);
-        }
-        return view('SuratMasuk.index');
+        $data_suratmasuk = \App\SuratMasuk::all();
+        return view('SuratMasuk.index',['data_suratmasuk'=> $data_suratmasuk]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //function untuk masuk ke view Tambah
     public function create()
     {
-        $jenissurat = Jenissurat::all();
-        return view('SuratMasuk.create', ['jenis_surat' => $jenissurat]);
+        $data_klasifikasi = \App\Klasifikasi::all();
+        return view('SuratMasuk.create', ['data_klasifikasi' => $data_klasifikasi]);
+    }
+
+    //function untuk tambah
+     public function store (Request $request)
+     {
+        $request->validate([
+            'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
+            'no_surat'   => 'unique:suratmasuk|min:5',
+            'isi'        => 'min:5',
+            'keterangan' => 'min:5',
+        ]);
+        $suratmasuk = new SuratMasuk();
+        $suratmasuk->no_surat   = $request->input('no_surat');
+        $suratmasuk->asal_surat = $request->input('asal_surat');
+        $suratmasuk->isi        = $request->input('isi');
+        $suratmasuk->kode       = $request->input('kode');
+        $suratmasuk->tgl_surat  = $request->input('tgl_surat');
+        $suratmasuk->tgl_terima = $request->input('tgl_terima');
+        $suratmasuk->keterangan = $request->input('keterangan');
+        $file                   = $request->file('filemasuk');
+        $fileName   = 'suratMasuk-'. $file->getClientOriginalName();
+        $file->move('datasuratmasuk/', $fileName);
+        $suratmasuk->filemasuk  = $fileName;
+        $suratmasuk->users_id = Auth::id();
+        $suratmasuk->save();
+        return redirect('suratmasuk')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");
+
+     }
+
+    //function untuk melihat file
+    public function show($id_suratmasuk)
+    {
+        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
+        return view('SuratMasuk.detail',['suratmasuk'=>$suratmasuk]);
+    }
+
+    //function untuk download file
+    public function downfunc(){
+
+        $downloads=DB::table('suratmasuk')->get();
+        return view('suratmasuk.tampil',compact('downloads'));
+    }
+
+    public function agendamasukdownload_excel(){
+        $suratmasuk = \App\SuratMasuk::select('id', 'isi', 'asal_surat', 'kode', 'no_surat', 'tgl_surat', 'tgl_terima', 'keterangan')->get();
+        return Excel::create('Agenda_Surat_Masuk', function($excel) use ($suratmasuk){
+            $excel->sheet('Agenda_Surat_Masuk',function($sheet) use ($suratmasuk){
+                $sheet->fromArray($suratmasuk);
+            });
+        })->download('xls');
+    }
+
+    //function untuk masuk ke view edit
+    public function edit ($id_suratmasuk)
+    {
+        $data_klasifikasi = \App\Klasifikasi::all();
+        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
+        return view('SuratMasuk.edit',['suratmasuk'=>$suratmasuk],['data_klasifikasi'=>$data_klasifikasi]);
+    }
+    public function update (Request $request, $id_suratmasuk)
+    {
+        $request->validate([
+            'filemasuk' => 'mimes:jpg,jpeg,png,doc,docx,pdf',
+            'no_surat' => 'min:5',
+            'isi' => 'min:5',
+            'keterangan' => 'min:5',
+        ]);
+        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
+        $suratmasuk->update($request->all());
+        //Untuk Update File
+        if($request->hasFile('filemasuk')){
+            $request->file('filemasuk')->move('datasuratmasuk/','suratMasuk-'. $request->file('filemasuk')->getClientOriginalName());
+            $suratmasuk->filemasuk = 'suratMasuk-'. $request->file('filemasuk')->getClientOriginalName();
+            $suratmasuk->save();
+        }
+
+        return redirect('suratmasuk') ->with('sukses','Data Surat Masuk Berhasil Diedit');
+    }
+
+    //function untuk hapus
+    public function destroy($id)
+    {
+        SuratMasuk::destroy($id);
+        return redirect('suratmasuk')->with('sukses', 'Data Surat Masuk Berhasil Dihapus');
     }
 
     public function cetakLaporan()
@@ -70,111 +133,6 @@ class SuratmasukController extends Controller
         // dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
         $suratmasuk = Suratmasuk::get()->whereBetween('tanggal_surat', [$tglawal, $tglakhir]);
         return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'gambar'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:3',
-            'isi_ringkas'        => 'min:5',
-
-        ]);
-
-        $suratmasuk = new Suratmasuk();
-        $suratmasuk->no_surat       = $request->input('no_surat');
-        $suratmasuk->asal_surat     = $request->input('asal_surat');
-        $suratmasuk->penerima_surat = $request->input('penerima_surat');
-        $suratmasuk->jenis_surat    = $request->input('jenis_surat');
-        $suratmasuk->tanggal_surat  = $request->input('tanggal_surat');
-        $suratmasuk->isi_ringkas    = $request->input('isi_ringkas');
-        //mengambil request gambar dengan nama asli
-        $image = $request->file('gambar')->getClientOriginalName();
-        //save gambar ke folder storage wisata
-        $suratmasuk->gambar = $request->file('gambar')->storeAs('images', $image);
-
-        $suratmasuk->save();
-        return redirect('suratmasuk')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");
-
-     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Suratmasuk  $suratmasuk
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $suratmasuk = Suratmasuk::where('id',$id)->get();
-        return view('SuratMasuk.detail', ['suratmasuk' => $suratmasuk]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Suratmasuk  $suratmasuk
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //mengambil relasi Jenis surat
-        $jenissurat = jenissurat::all();
-        $suratmasuk = Suratmasuk::where('id',$id)->get();
-        return view('suratmasuk.edit', ['suratmasuk' => $suratmasuk], ['jenis_surat' => $jenissurat] );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Suratmasuk  $suratmasuk
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'gambar'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:3',
-            'isi_ringkas'        => 'min:5',
-
-        ]);
-
-        $suratmasuk = Suratmasuk::findOrFail($id);
-        $suratmasuk->no_surat       = $request->no_surat;
-        $suratmasuk->asal_surat     = $request->asal_surat;
-        $suratmasuk->penerima_surat = $request->penerima_surat;
-        $suratmasuk->jenis_surat    = $request->jenis_surat;
-        $suratmasuk->tanggal_surat  = $request->tanggal_surat;
-        $suratmasuk->isi_ringkas    = $request->isi_ringkas;
-        if ($request->gambar) {
-            Storage::delete($suratmasuk->gambar);
-            //mengambil request gambar dengan nama asli
-            $image = $request->file('gambar')->getClientOriginalName();
-            $suratmasuk->gambar = $request->file('gambar')->storeAs('images', $image);
-         }
-
-        $suratmasuk->save();
-        return redirect('suratmasuk')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");
-
-     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Suratmasuk  $suratmasuk
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Suratmasuk::destroy($id);
-        return redirect('suratmasuk')->with('success', 'Data berhasil di delete !');
     }
 
 }

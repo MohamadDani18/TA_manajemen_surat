@@ -6,24 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Suratmasuk extends Model
 {
-    //
     protected $table = 'suratmasuk';
-    protected $fillable = ['asal_surat','no_surat','penerima_surat','jenis_surat','tanggal_surat','isi_ringkas','gambar'];
+    protected $fillable = ['no_surat','asal_surat','isi','kode','tgl_surat','tgl_terima','filemasuk','keterangan','users_id'];
 
-    //relasi tabel surat masuk
-    public function user ()
+    //function relasi ke disposisi
+    public function disp()
+    {
+        return $this->hasMany('App\Disposisi');
+    }
+
+    //function relasi ke user
+    public function users()
     {
         return $this->belongsTo('App\User');
-    }
-
-    public function jenissurat()
-    {
-        return $this->belongsTo('App\Jenissurat');
-    }
-
-    public function disposisi ()
-    {
-        return $this->hasOne('App\Disposisi');
     }
 
 }
