@@ -39,8 +39,8 @@
                             <th>No.</th>
                             <th>Tujuan</th>
                             <th>Isi Disposisi</th>
-                            <th>Sifat</th>
-                            <th>Batas Waktu</th>
+                            {{--  <th>Sifat</th>  --}}
+                            <th>Tanggal</th>
                             <th>Catatan</th>
                             <th>Aksi</th>
                         </tr>
@@ -53,8 +53,8 @@
                             <td>{{$no}}</td>
                             <td>{{$disposisi->tujuan}}</td>
                             <td>{{$disposisi->isi}}</td>
-                            <td>{{$disposisi->sifat}}</td>
-                            <td>{{$disposisi->batas_waktu}}</td>
+                            {{--  <td>{{$disposisi->sifat}}</td>  --}}
+                            <td>{{$disposisi->tgl_disp}}</td>
                             <td>{{$disposisi->catatan}}</td>
                             <td>
                                 <form action="{{ route('disposisi.destroy', [$smasuk, $disposisi->id]) }}"
@@ -65,9 +65,9 @@
                                         class="btn btn-primary btn-sm my-1 mr-sm-1" role="button"><i
                                             class="nav-icon fas fa-pencil-alt"></i> Edit</a>
                                     <a class="btn btn-primary btn-sm my-1 mr-sm-1"
-                                        {{--  href="{{ route('disposisi.download', [$smasuk, $disposisi->id]) }}"  --}}
+                                         href="{{ route('disposisi.cetak', [$smasuk, $disposisi->id]) }}"
                                         target="_blank" role="button"><i class="fas fa-print"></i> Cetak</a>
-                                    @if (auth()->user()->role == '1')
+                                    @if (auth()->user()->role == 'admin')
                                     <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1"
                                         onclick="return confirm('Hapus Data ?')"><i class="nav-icon fas fa-trash"></i>
                                         Hapus</button>

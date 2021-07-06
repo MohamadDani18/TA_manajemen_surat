@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SuratMasuk;
+use App\Suratmasuk;
 use App\Jenissurat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +21,11 @@ class SuratmasukController extends Controller
      */
     public function index()
     {
+        $disp = \App\Disposisi::all();
+
         $data_suratmasuk = \App\SuratMasuk::all();
-        return view('SuratMasuk.index',['data_suratmasuk'=> $data_suratmasuk]);
+
+        return view('SuratMasuk.index',['data_suratmasuk'=> $data_suratmasuk],['disposisi'=> $disp]);
     }
 
     //function untuk masuk ke view Tambah
@@ -47,8 +50,6 @@ class SuratmasukController extends Controller
         $suratmasuk->isi        = $request->input('isi');
         $suratmasuk->kode       = $request->input('kode');
         $suratmasuk->tgl_surat  = $request->input('tgl_surat');
-        $suratmasuk->tgl_terima = $request->input('tgl_terima');
-        $suratmasuk->keterangan = $request->input('keterangan');
         $file                   = $request->file('filemasuk');
         $fileName   = 'suratMasuk-'. $file->getClientOriginalName();
         $file->move('datasuratmasuk/', $fileName);
@@ -66,30 +67,30 @@ class SuratmasukController extends Controller
         return view('SuratMasuk.detail',['suratmasuk'=>$suratmasuk]);
     }
 
-    //function untuk download file
-    public function downfunc(){
+    // //function untuk download file
+    // public function downfunc(){
 
-        $downloads=DB::table('suratmasuk')->get();
-        return view('suratmasuk.tampil',compact('downloads'));
-    }
+    //     $downloads=DB::table('suratmasuk')->get();
+    //     return view('suratmasuk.tampil',compact('downloads'));
+    // }
 
-    public function agendamasukdownload_excel(){
-        $suratmasuk = \App\SuratMasuk::select('id', 'isi', 'asal_surat', 'kode', 'no_surat', 'tgl_surat', 'tgl_terima', 'keterangan')->get();
-        return Excel::create('Agenda_Surat_Masuk', function($excel) use ($suratmasuk){
-            $excel->sheet('Agenda_Surat_Masuk',function($sheet) use ($suratmasuk){
-                $sheet->fromArray($suratmasuk);
-            });
-        })->download('xls');
-    }
+    // public function agendamasukdownload_excel(){
+    //     $suratmasuk = \App\SuratMasuk::select('id', 'isi', 'asal_surat', 'kode', 'no_surat', 'tgl_surat', 'tgl_terima', 'keterangan')->get();
+    //     return Excel::create('Agenda_Surat_Masuk', function($excel) use ($suratmasuk){
+    //         $excel->sheet('Agenda_Surat_Masuk',function($sheet) use ($suratmasuk){
+    //             $sheet->fromArray($suratmasuk);
+    //         });
+    //     })->download('xls');
+    // }
 
     //function untuk masuk ke view edit
-    public function edit ($id_suratmasuk)
+    public function edit ($id)
     {
         $data_klasifikasi = \App\Klasifikasi::all();
-        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
+        $suratmasuk = \App\SuratMasuk::find($id);
         return view('SuratMasuk.edit',['suratmasuk'=>$suratmasuk],['data_klasifikasi'=>$data_klasifikasi]);
     }
-    public function update (Request $request, $id_suratmasuk)
+    public function update (Request $request, $id)
     {
         $request->validate([
             'filemasuk' => 'mimes:jpg,jpeg,png,doc,docx,pdf',
@@ -97,7 +98,8 @@ class SuratmasukController extends Controller
             'isi' => 'min:5',
             'keterangan' => 'min:5',
         ]);
-        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
+
+        $suratmasuk = Suratmasuk::findOrFail($id);
         $suratmasuk->update($request->all());
         //Untuk Update File
         if($request->hasFile('filemasuk')){
@@ -106,7 +108,7 @@ class SuratmasukController extends Controller
             $suratmasuk->save();
         }
 
-        return redirect('suratmasuk') ->with('sukses','Data Surat Masuk Berhasil Diedit');
+        return redirect()->route('suratmasuk.index')->with('sukses','surat masuk berhasil di update');
     }
 
     //function untuk hapus
@@ -131,7 +133,7 @@ class SuratmasukController extends Controller
     public function cetakLaporanFilter($tglawal, $tglakhir)
     {
         // dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
-        $suratmasuk = Suratmasuk::get()->whereBetween('tanggal_surat', [$tglawal, $tglakhir]);
+        $suratmasuk = Suratmasuk::get()->whereBetween('tgl_surat', [$tglawal, $tglakhir]);
         return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
     }
 

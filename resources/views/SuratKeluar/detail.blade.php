@@ -21,16 +21,16 @@
                         <td>{{$w->no_surat}}</td>
                     </tr>
                     <tr>
-                        <th>Jenis Surat</th>
-                        <td>{{$w->jenis_surat}}</td>
+                        <th>Kode Klasifikasi</th>
+                        <td>{{$w->kode}}</td>
                     </tr>
                     <tr>
                         <th>Tanggal Surat</th>
-                        <td>{{$w->tanggal_surat}}</td>
+                        <td>{{$w->tgl_surat}}</td>
                     </tr>
                     <tr>
                         <th>Isi Ringkas</th>
-                        <td>{{$w->isi_ringkas}}</td>
+                        <td>{{$w->isi}}</td>
                     </tr>
                     <tr>
                         <th>File</th>

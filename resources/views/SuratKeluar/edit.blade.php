@@ -37,38 +37,36 @@
                     </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>Jenis Surat :</label>
-                            <select name="jenis_surat" class="form-control" id="">
-                                    <option value="">Pilih Jenis Surat</option>
-                                @foreach ($jenis_surat as $item)
-                                    <option value="{{$item->jenis_surat}}"
-                                    @if ($w->jenis_surat == $item->jenis_surat)
-                                        selected
-                                    @endif
-                                        >{{$item->jenis_surat}}</option>
+
+                            <label for="kode">Kode Klasifikasi</label>
+                            <select name="kode" class="custom-select my-1 mr-sm-2 bg-light" id="kode"
+                                value="{{$w->kode}}" required>
+                                <option selected>{{$w->kode}}</option>
+                                @foreach($data_klasifikasi as $klasifikasi)
+                                <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}} ( {{$klasifikasi->kode}} )
+                                </option>
                                 @endforeach
                             </select>
-                        </div>
+                        
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
                             <label>Tanggal Surat :</label>
-                            <input type="date" name="tanggal_surat" class="form-control" value="{{$w->tanggal_surat}}" autocomplete="off">
+                            <input type="date" name="tgl_surat" class="form-control" value="{{$w->tgl_surat}}" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
                             <label>Isi ringkas :</label>
-                            <textarea name="isi_ringkas" rows="3" class="form-control @error('isi_ringkas') is-invalid @enderror">{{$w->isi_ringkas}}</textarea>
-                            @error('isi_ringkas')
+                            <textarea name="isi" rows="3" class="form-control @error('isi') is-invalid @enderror">{{$w->isi}}</textarea>
+                            @error('isi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6">
+                    {{-- <div class="col-xs-12 col-sm-12 col-md-6">
                         <hr>
                         @if($w->gambar)
                             <img width="25%" src="{{asset('/storage/'.$w->gambar)}}">
@@ -76,16 +74,15 @@
                             <img src="" alt="" width="25%">
                         @endif
                         <hr>
-                    </div>
+                    </div> --}}
                     <div class="col-xs-12 col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label>Ubah Gambar :</label>
-                            <input type="file" name="gambar" class="form-control-file @error('gambar') is-invalid @enderror" autocomplete="off">
-                            @error('gambar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <label for="exampleFormControlFile1">File</label>
+                            <input name="filekeluar" type="file" class="form-control-file" id="exampleFormControlFile1"
+                                value="{{$w->filekeluar}}">
+                            <small id="exampleFormControlFile1" class="text-warning">
+                                Pastikan file anda ( jpg,jpeg,png,doc,docx,pdf ) !!!
+                            </small>
                         </div>
                     </div>
                 </div>

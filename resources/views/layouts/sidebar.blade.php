@@ -2,91 +2,58 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-           @if (Auth::user()->role === '1')
+           <li class="nav-header">MENU UTAMA</li>
+           @if (Auth::user()->role === 'admin')
            <li class="nav-item">
-            <a href="/home" class="nav-link">
+            <a href="{{ route('home') }}" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-           <li class="nav-item">
-            <a href="{{ route('user.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+          <li class="nav-item">
+            <a href="{{ route('suratmasuk.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-envelope"></i>
               <p>
-                Data User
+                Surat Masuk
               </p>
             </a>
           </li>
-          {{--  <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-plus"></i>
+          <li class="nav-item">
+            <a href="{{ route('suratkeluar.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-envelope"></i>
               <p>
-                Buat Surat
+                Surat Keluar
               </p>
             </a>
-          </li>  --}}
+          </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+        <a href="/cetak-laporan-form" class="nav-link">
+          <i class="nav-icon fas fa-print"></i>
           <p>
-            Data Surat
-            <i class="right fas fa-angle-left"></i>
+            Laporan Surat
           </p>
         </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="{{ route('suratmasuk.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-genderless"></i>
-                  <p>
-                    Surat Masuk
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('suratkeluar.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-genderless"></i>
-                  <p>
-                    Surat Keluar
-                  </p>
-                </a>
-              </li>
-        </ul>
       </li>
-      {{-- <li class="nav-item">
-        <a href="{{ route('jenissurat.index') }}" class="nav-link">
-          <i class="nav-icon fas fa-book"></i>
+      <li class="nav-header">UTILITY</li>
+      <li class="nav-item">
+        <a href="{{ route('user.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-users"></i>
           <p>
-            Jenis Surat
+            Manajemen User
           </p>
         </a>
-      </li> --}}
+      </li>
       <li class="nav-item">
         <a href="{{ route('klasifikasi.index') }}" class="nav-link">
-          <i class="nav-icon fas fa-book"></i>
+          <i class="nav-icon fas fa-layer-group"></i>
           <p>
             Klasifikasi
           </p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="{{ route('disposisi.index') }}" class="nav-link">
-          <i class="nav-icon fas fa-th"></i>
-          <p>
-            Disposisi
-          </p>
-        </a>
-      </li> --}}
-      <li class="nav-item">
-        <a href="/cetak-laporan-form" class="nav-link">
-          <i class="nav-icon fas fa-list-alt"></i>
-          <p>
-            Report Surat
-          </p>
-        </a>
-      </li>
-      @elseif (Auth::user()->role == '2')
+      @elseif (Auth::user()->role == 'pegawai')
       <li class="nav-item">
         <a href="/home" class="nav-link">
           <i class="nav-icon fas fa-home"></i>
@@ -138,7 +105,7 @@
           </p>
         </a>
       </li>
-      @elseif (Auth::user()->role == '3')
+      @elseif (Auth::user()->role == 'kepala')
       <li class="nav-item">
         <a href="/home" class="nav-link">
           <i class="nav-icon fas fa-home"></i>

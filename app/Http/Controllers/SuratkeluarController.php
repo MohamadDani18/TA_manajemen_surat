@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Suratkeluar;
 use App\Suratmasuk;
-use App\Jenissurat;
+use App\Klasifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use SweetAlert;
 use DataTables;
 use Storage;
@@ -31,9 +32,9 @@ class SuratkeluarController extends Controller
                         '.$c.'
                             <input type="hidden" name="_method" value="DELETE">
                         </form>
-                        <a href="'.route('suratkeluar.show', $data->id).'" class="btn btn-primary btn-sm"><i class="fas fa-file-archive"></i><span>&nbsp;Show</span></a>
-                            <a href="'.route('suratkeluar.edit', $data->id).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>
-                            <button onclick="deleteData('. $data->id .')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+                        <a href="'.route('suratkeluar.show', $data->id).'" class="btn btn-primary btn-sm"><i class="fas fa-file-archive" title="Detail"></i><span>&nbsp; Show</span></a>
+                            <a href="'.route('suratkeluar.edit', $data->id).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i><span>&nbsp; Edit</span></a>
+                            <button onclick="deleteData('. $data->id .')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp; Delete</button>
                         ';
                 })
             ->RawColumns(['action'])
@@ -49,8 +50,8 @@ class SuratkeluarController extends Controller
      */
     public function create()
     {
-        $jenissurat = Jenissurat::all();
-        return view('SuratKeluar.create', ['jenis_surat' => $jenissurat]);
+        $data_klasifikasi = Klasifikasi::all();
+        return view('SuratKeluar.create', ['data_klasifikasi' => $data_klasifikasi]);
     }
 
     /**
@@ -62,25 +63,26 @@ class SuratkeluarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gambar'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:3',
-            'isi_ringkas'        => 'min:5',
+            'filekeluar'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
+            'no_surat'   => 'unique:suratmasuk|min:5',
+            'isi'        => 'min:5',
+            'keterangan' => 'min:5',
 
         ]);
 
         $suratkeluar = new Suratkeluar();
         $suratkeluar->tujuan_surat    = $request->input('tujuan_surat');
         $suratkeluar->no_surat       = $request->input('no_surat');
-        $suratkeluar->jenis_surat    = $request->input('jenis_surat');
-        $suratkeluar->tanggal_surat  = $request->input('tanggal_surat');
-        $suratkeluar->isi_ringkas    = $request->input('isi_ringkas');
-        //mengambil request gambar dengan nama asli
-        $image = $request->file('gambar')->getClientOriginalName();
-        //save gambar ke folder storage wisata
-        $suratkeluar->gambar = $request->file('gambar')->storeAs('images', $image);
-
+        $suratkeluar->kode    = $request->input('kode');
+        $suratkeluar->tgl_surat  = $request->input('tgl_surat');
+        $suratkeluar->isi    = $request->input('isi');
+        $file                      = $request->file('filekeluar');
+        $fileName   = 'suratKeluar-'. $file->getClientOriginalName();
+        $file->move('datasuratkeluar/', $fileName);
+        $suratkeluar->filekeluar  = $fileName;
+        $suratkeluar->users_id = Auth::id();
         $suratkeluar->save();
-        return redirect('suratkeluar')->with("sukses", "Data Surat Masuk Berhasil Ditambahkan");
+        return redirect('suratkeluar')->with("sukses", "Data Surat keluar Berhasil Ditambahkan");
 
      }
 
@@ -104,10 +106,10 @@ class SuratkeluarController extends Controller
      */
     public function edit($id)
     {
-        //mengambil relasi Jenis surat
-        $jenissurat = jenissurat::all();
+        //mengambil relasi Klasifikasi
+        $data_klasifikasi = Klasifikasi::all();
         $suratkeluar = Suratkeluar::where('id',$id)->get();
-        return view('suratkeluar.edit', ['suratkeluar' => $suratkeluar], ['jenis_surat' => $jenissurat] );
+        return view('SuratKeluar.edit', ['suratkeluar' => $suratkeluar], ['data_klasifikasi' => $data_klasifikasi] );
     }
 
     /**
@@ -127,17 +129,13 @@ class SuratkeluarController extends Controller
         ]);
 
         $suratkeluar = Suratkeluar::findOrFail($id);
-        $suratkeluar->no_surat       = $request->no_surat;
-        $suratkeluar->tujuan_surat     = $request->tujuan_surat;
-        $suratkeluar->jenis_surat    = $request->jenis_surat;
-        $suratkeluar->tanggal_surat  = $request->tanggal_surat;
-        $suratkeluar->isi_ringkas    = $request->isi_ringkas;
-        if ($request->gambar) {
-            Storage::delete($suratkeluar->gambar);
-            //mengambil request gambar dengan nama asli
-            $image = $request->file('gambar')->getClientOriginalName();
-            $suratkeluar->gambar = $request->file('gambar')->storeAs('images', $image);
-         }
+        $suratkeluar->update($request->all());
+        //Untuk Update File
+        if($request->hasFile('filekeluar')){
+            $request->file('filekeluar')->move('datasuratkeluar/', 'suratKeluar-'. $request->file('filekeluar')->getClientOriginalName());
+            $suratkeluar->filekeluar = 'suratKeluar-'. $request->file('filekeluar')->getClientOriginalName();
+            $suratkeluar->save();
+        }
 
          $suratkeluar->save();
         return redirect('suratkeluar')->with("sukses", "Data Surat Masuk Berhasil diubah");

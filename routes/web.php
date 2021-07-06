@@ -20,14 +20,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth','checkRole:1, 2, 3']], function () {
+Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], function () {
 
-    Route::resource('user', 'UserController');
     Route::resource('suratmasuk', 'SuratMasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('jenissurat', 'JenissuratController');
-    Route::resource('klasifikasi', 'KlasifikasiController');
-    Route::resource('disposisis', 'DisposisisController');
+    // Route::resource('klasifikasi', 'KlasifikasiController');
+    // Route::resource('disposisi', 'DisposisiController');
 
     //disposisi
     Route::get('/disposisi/{suratmasuk}', 'DisposisiController@index')->name('disposisi.index');
@@ -36,6 +35,7 @@ Route::group(['middleware' => ['auth','checkRole:1, 2, 3']], function () {
     Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
     Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
     Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
+    Route::get('/disposisi/{suratmasuk}/{id}/cetak', 'DisposisiController@cetak')->name('disposisi.cetak');
 
     Route::get('home', 'HomeController@index')->name('home');
     Route::get('/cetak-laporan', 'SuratmasukController@cetakLaporan')->name('cetak-laporan');
@@ -44,9 +44,10 @@ Route::group(['middleware' => ['auth','checkRole:1, 2, 3']], function () {
 
 });
 
-Route::group(['middleware' => ['auth','checkRole:1, 2']], function () {
+Route::group(['middleware' => ['auth','checkRole:admin']], function () {
     Route::resource('/jenissurat','JenissuratController');
     Route::resource('/user','UserController');
+    Route::resource('klasifikasi', 'KlasifikasiController');
 
 });
 

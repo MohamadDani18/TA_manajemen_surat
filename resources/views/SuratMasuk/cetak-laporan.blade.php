@@ -25,10 +25,9 @@
                 <th>No.</th>
                 <th>Asal Surat</th>
                 <th>No Surat</th>
-                <th>Perihal Surat</th>
-                <th>Jenis Surat</th>
+                <th>Isi RIngkas</th>
+                <th>Kode Klasifikasi</th>
                 <th>tanggal Surat</th>
-                <th>Isi Ringkas</th>
             </tr>
 
             @foreach ($suratmasuk as $s)
@@ -36,10 +35,9 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$s->asal_surat}}</td>
                     <td>{{$s->no_surat}}</td>
-                    <td>{{$s->penerima_surat}}</td>
-                    <td>{{$s->jenis_surat}}</td>
-                    <td>{{$s->tanggal_surat}}</td>
-                    <td>{{$s->isi_ringkas}}</td>
+                    <td>{{$s->isi}}</td>
+                    <td>{{$s->kode}}</td>
+                    <td>{{$s->tgl_surat}}</td>
                 </tr>
             @endforeach
 

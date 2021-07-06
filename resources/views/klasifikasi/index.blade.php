@@ -19,7 +19,7 @@
 
         <div class="row">
             <div class="col">
-                <h3><i class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Klasifikasi Surat</h3>
+                <h5><i class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Klasifikasi Surat</h5>
                 <hr>
             </div>
         </div>
@@ -63,7 +63,7 @@
 
                                     @csrf
                                     @method('DELETE')
-                                    @if (auth()->user()->role == '1')
+                                    @if (auth()->user()->role == 'admin')
                                     <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
                                     @endif
                                 </form>

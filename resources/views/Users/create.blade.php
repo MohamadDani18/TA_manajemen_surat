@@ -21,7 +21,14 @@
             <label for="">Email</label>
             <input type="email" name="email" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Email">
           </div>
-
+          <div class="form-group col-md-12">
+            <label for="role">Level</label>
+                    <select name="role" id="role" class="form-control form-control-border border-width-2" required>
+                        <option value="1">Administrator</option>
+                        <option value="2">Pegawai</option>
+                        <option value="3">Kepala</option>
+                    </select>
+          </div>
           <div class="form-group col-md-12">
             <label for="">Password</label>
             <input type="password" name="password" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Password">

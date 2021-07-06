@@ -18,12 +18,12 @@
         @endif
         <div class="row">
             <div class="col">
-                <h3><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Surat Masuk</h3>
+                <h5><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Surat Masuk</h5>
                 <hr />
             </div>
         </div>
         <div>
-            @if (auth()->user()->role == '1')
+            @if (auth()->user()->role == 'admin')
             <div class="col">
                 <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{route('suratmasuk.create')}}" role="button"><i class="fas fa-plus"></i>
                     Tambah Data</a>
@@ -37,14 +37,13 @@
                     <thead>
                         <tr class="bg-light">
                             <th>No.</th>
-                            {{--  <th>Isi Ringkas</th>  --}}
-                            <th>File</th>
+                            <th>No. Surat</th>
+                            <th>Isi Ringkas</th>
                             <th>Asal Surat</th>
                             <th>Kode</th>
-                            <th>No. Surat</th>
                             <th>Tgl. Surat</th>
-                            <th>Tgl. Diterima</th>
-                            <th>Keterangan</th>
+                            {{--  <th>File</th>  --}}
+                            <th>Disposisi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -54,39 +53,52 @@
                         <?php $no++ ;?>
                         <tr>
                             <td>{{$no}}</td>
-                            {{--  <td>{{$suratmasuk->isi}}</td>  --}}
-                            <td>
+                            <td>{{$suratmasuk->no_surat}}</td>
+                            <td>{{$suratmasuk->isi}}</td>
+                            <td>{{$suratmasuk->asal_surat}}</td>
+                            <td>{{$suratmasuk->kode}}</td>
+                            <td>{{$suratmasuk->tgl_surat}}</td>
+                            {{--  <td>
                                 @if($suratmasuk->filemasuk!= NULL)
                                    <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
                                 @else
                                     <h5 style="color:red">Tidak ada Gambar</h5>
                                 @endif
-                            </td>
-                            <td>{{$suratmasuk->asal_surat}}</td>
-                            <td>{{$suratmasuk->kode}}</td>
-                            <td>{{$suratmasuk->no_surat}}</td>
-                            <td>{{$suratmasuk->tgl_surat}}</td>
-                            <td>{{$suratmasuk->tgl_terima}}</td>
-                            {{--  <td>{{$suratmasuk->keterangan}}</td>  --}}
+                            </td>  --}}
                             <td>
+                                @php
+                                        $status = 0;
+                               @endphp
+                                @foreach ($disposisi as $item)
+                                @if ($suratmasuk->id === $item->suratmasuk_id)
+                                    @php
+                                        $status = 1;
+                                    @endphp
+                                    <a href="">{{$tujuan = $item->tujuan}} <br></a>
+                                @endif
+                                @endforeach
+                                @if (auth()->user()->role == 'admin')
+                                @if ($status === 0)
                                 <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
                                     class="btn btn-warning btn-sm my-1 mr-sm-1"><i
-                                        class="fas fa-paperclip"></i> </a>Disposisi
+                                        class="fas fa-paperclip"></i> </a>Wait Disposisi
+                                @endif
+                                @endif
                             </td>
                             <td>
-                                <form action="{{ route('suratmasuk.destroy',$suratmasuk->id) }}" method="POST">
+                                <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('suratmasuk.destroy',$suratmasuk->id) }}" method="POST">
 
                                     {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
-                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">
+                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1 " href="{{ route('suratmasuk.show',$suratmasuk->id) }}">
                                         <i class="fas fa-file-archive"></i> Detail</a>
 
-                                    @if (auth()->user()->role == '1')
-                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1 btn-block" href="{{ route('suratmasuk.edit',$suratmasuk->id) }}">Edit</a>
+                                    @if (auth()->user()->role == 'admin')
+                                    <a class="btn btn-warning btn-sm my-1 mr-sm-1 " href="{{ route('suratmasuk.edit',$suratmasuk->id) }}"><i class="nav-icon fas fa-edit"></i> Edit</a>
 
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 btn-block"><i class="nav-icon fas fa-trash"></i> Hapus</button>
+                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
                                     @endif
                                 </form>
                                 {{-- @if (auth()->user()->role == '1')

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Suratkeluar;
 use App\Suratmasuk;
 use App\User;
+use PDF;
 
 class DisposisiController extends Controller
 {
@@ -47,22 +48,22 @@ class DisposisiController extends Controller
         $this->validate($request, [
             'tujuan'        => 'required',
             'isi'           => 'required',
-            'sifat'         => 'required',
-            'batas_waktu'   => 'required',
+            // 'sifat'         => 'required',
+            'tgl_disp'   => 'required',
             'catatan'       => 'required',
         ]);
 
         $disp = Disposisi::create([
             'tujuan'          => $request->tujuan,
             'isi'             => $request->isi,
-            'sifat'           => $request->sifat,
-            'batas_waktu'     => $request->batas_waktu,
+            // 'sifat'           => $request->sifat,
+            'tgl_disp'     => $request->tgl_disp,
             'catatan'         => $request->catatan,
             'users_id'        => Auth::id(),
             'suratmasuk_id'   => $suratmasuk->id,
         ]);
 
-        return redirect()->route('disposisi.index', [$smasuk])->with('sukses', 'Data Disposisi Berhasil ditambahkan');
+        return redirect('suratmasuk')->with('sukses', 'Data Disposisi Berhasil ditambahkan');
     }
 
     /**
@@ -103,16 +104,16 @@ class DisposisiController extends Controller
         $this->validate($request, [
             'tujuan'        => 'required',
             'isi'           => 'required',
-            'sifat'         => 'required',
-            'batas_waktu'   => 'required',
+            // 'sifat'         => 'required',
+            'tgl_disp'   => 'required',
             'catatan'       => 'required',
         ]);
 
         $disp_data = [
             'tujuan'        => $request->tujuan,
             'isi'           => $request->isi,
-            'sifat'         => $request->sifat,
-            'batas_waktu'   => $request->batas_waktu,
+            // 'sifat'         => $request->sifat,
+            'tgl_disp'   => $request->tgl_disp,
             'catatan'       => $request->catatan,
             'users_id'      => Auth::id(),
             'smasuk_id'     => $suratmasuk->id,
@@ -120,7 +121,7 @@ class DisposisiController extends Controller
 
         $disp->update($disp_data);
 
-        return redirect()->route('disposisi.index', compact('smasuk'))->with('sukses','Disposisi berhasil di Simpan');
+        return redirect()->route('disposisi.index', [$smasuk])->with('sukses', 'Data Disposisi Berhasil diubah');
     }
 
     /**
@@ -136,5 +137,14 @@ class DisposisiController extends Controller
         $disp->delete();
 
         return redirect()->back()->with('sukses','Disposisi Berhasil di Hapus');
+    }
+
+    public function cetak(SuratMasuk $suratmasuk, $id)
+    {
+        // $inst = Instansi::first();
+        $smasuk = $suratmasuk->findorfail($suratmasuk->id);
+        $disp = Disposisi::findorfail($id);
+        $pdf = PDF::loadview('disposisi.cetak', compact('disp','smasuk'));
+        return $pdf->stream();
     }
 }

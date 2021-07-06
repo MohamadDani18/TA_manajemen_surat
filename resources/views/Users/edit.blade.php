@@ -23,7 +23,15 @@
             <label for="">Email</label>
             <input type="email" name="email" value="{{$u->email}}" autocomplete="off" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Email">
           </div>
-
+          <div class="form-group col-md-12">
+            <label for="role">Level</label>
+            <select name="role" id="role" autocomplete="off" class="form-control form-control-border border-width-2" required>
+                <option value="admin" @if ($u->role == 'admin') selected @endif>Admin
+                </option>
+                <option value="pegawai" @if ($u->role == 'pegawai') selected @endif>Pegawai</option>
+                <option value="kepala" @if ($u->role == 'kepala') selected @endif>Kepala</option>
+            </select>
+          </div>
           <div class="form-group col-md-12">
             <label for="">Password</label>
             <input type="password" name="password" value="{{$u->password}}" autocomplete="off" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Password">

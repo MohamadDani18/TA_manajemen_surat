@@ -8,11 +8,11 @@ class Suratkeluar extends Model
 {
     //
     protected $table = 'suratkeluar';
-    protected $fillable = ['tujuan_surat','no_surat','jenis_surat','tanggal_surat','isi_ringkas','gambar'];
+    protected $fillable = ['no_surat','tujuan_surat','isi','kode','tgl_surat','filekeluar','users_id'];
 
-    //relasi tabel wilayah
-    public function jenissurat()
+    //relasi tabel user
+    public function users()
     {
-        return $this->belongsTo('App\Jenissurat');
+        return $this->belongsTo('App\User');
     }
 }

@@ -17,8 +17,7 @@ class CreateDisposisiTable extends Migration
             $table->increments('id');
             $table->string('tujuan');
             $table->string('isi');
-            $table->string('sifat');
-            $table->date('batas_waktu');
+            $table->date('tgl_disp');
             $table->string('catatan');
             $table->integer('users_id')->unsigned();
             $table->integer('suratmasuk_id')->unsigned();

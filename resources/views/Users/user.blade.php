@@ -16,6 +16,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>Level</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,6 +38,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
+                {data: 'role', name: 'role'}, 
                 {data: 'action', name: 'action',orderable : false, searchable: false}
             ]
           });

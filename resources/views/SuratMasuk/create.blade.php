@@ -4,6 +4,7 @@
 
 
 @section('content')
+
 <!-- Default box -->
 <div class="card mb-4">
     <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Tambah Surat Keluar</div>
@@ -42,17 +43,6 @@
                     <input value="{{old('tgl_surat')}}" name="tgl_surat" type="date" class="form-control bg-light"
                         id="tglsurat" required>
           </div>
-          <div class="form-group col-md-6">
-            <label for="tglditerima">Tanggal Diterima</label>
-            <input value="{{old('tgl_terima')}}" name="tgl_terima" type="date" class="form-control bg-light"
-                id="tglditerima" required>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="keterangan">Keterangan</label>
-            <input value="{{old('keterangan')}}" name="keterangan" type="text" class="form-control bg-light"
-                id="keterangan" placeholder="Keterangan" required>
-          </div>
-
           <!-- textarea -->
           <div class="form-group col-md-6">
             <label for="isisurat">Isi Ringkas</label>

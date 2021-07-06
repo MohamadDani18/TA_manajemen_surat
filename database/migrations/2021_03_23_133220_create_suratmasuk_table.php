@@ -20,10 +20,8 @@ class CreateSuratmasukTable extends Migration
             $table->text('isi');
             $table->char('kode');
             $table->date('tgl_surat');
-            $table->date('tgl_terima');
             $table->integer('users_id')->unsigned();
             $table->string('filemasuk');
-            $table->text('keterangan');
             $table->timestamps();
         });
     }

@@ -27,10 +27,8 @@
                     <input name="tujuan" type="text" class="form-control bg-light" placeholder="Tujuan" required>
                     <label for="isi">Isi</label>
                     <input name="isi" type="text" class="form-control bg-light" placeholder="Isi" required>
-                    <label for="sifat">Sifat</label>
-                    <input name="sifat" type="text" class="form-control bg-light" placeholder="Sifat" required>
-                    <label for="batas_waktu">Batas Waktu</label>
-                    <input name="batas_waktu" type="date" class="form-control bg-light" required>
+                    <label for="batas_waktu">Tanggal</label>
+                    <input name="tgl_disp" type="date" class="form-control bg-light" required>
                     <label for="catatan">Catatan</label>
                     <input name="catatan" type="text" class="form-control bg-light" placeholder="Catatan" required>
                 </div>
