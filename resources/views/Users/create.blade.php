@@ -4,6 +4,20 @@
 
 
 @section('content')
+@if(session('sukses'))
+        <div class="alert alert-success" role="alert">
+            {{session('sukses')}}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 <!-- Default box -->
 <div class="card mb-4">
     <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Tambah User</div>

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Suratkeluar;
-use App\Suratmasuk;
-use App\Klasifikasi;
 use App\Surat;
+use App\Suratkeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +11,7 @@ use SweetAlert;
 use DataTables;
 use Storage;
 
-class SuratkeluarController extends Controller
+class SuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +20,8 @@ class SuratkeluarController extends Controller
      */
     public function index(Request $request)
     {
-        $suratkeluar = \App\Surat::where('keterangan','terverifikasi')->get();
-        return view('SuratKeluar.index', ['suratkeluar' => $suratkeluar]);
+        $surat = \App\Surat::where('keterangan','belum terverifikasi')->get();
+        return view('surats.index', compact('surat'));
     }
 
     /**
@@ -33,8 +31,8 @@ class SuratkeluarController extends Controller
      */
     public function create()
     {
-        $data_klasifikasi = Klasifikasi::all();
-        return view('SuratKeluar.create', ['data_klasifikasi' => $data_klasifikasi]);
+
+        return view('surats.surat');
     }
 
     /**
@@ -51,7 +49,7 @@ class SuratkeluarController extends Controller
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
         ]);
-        $surat = new Suratkeluar();
+        $surat = new Surat();
         $surat->no_surat          = $request->input('no_surat');
         $surat->lampiran          = $request->input('lampiran');
         $surat->tempat_surat      = $request->input('tempat_surat');
@@ -64,17 +62,16 @@ class SuratkeluarController extends Controller
         $surat->waktu             = $request->input('waktu');
         $surat->tempat            = $request->input('tempat');
         $surat->salam_penutup     = $request->input('salam_penutup');
-        $surat->keterangan        = $request->input('keterangan');
+        $surat->keterangan        = 'belum terverifikasi';
         $surat->users_id = Auth::id();
         $surat->save();
-        return back()->with("sukses", "Surat Berhasil di verifikasi");
-
-     }
+        return back()->with("sukses", "Surat Berhasil di buat");
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Suratkeluar  $suratkeluar
+     * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -86,48 +83,58 @@ class SuratkeluarController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Suratkeluar  $suratkeluar
+     * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Surat $surat)
     {
-        //mengambil relasi Klasifikasi
-        $data_klasifikasi = Klasifikasi::all();
-        $suratkeluar = Suratkeluar::where('id',$id)->get();
-        return view('SuratKeluar.edit', ['suratkeluar' => $suratkeluar], ['data_klasifikasi' => $data_klasifikasi] );
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Suratkeluar  $suratkeluar
+     * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+            $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
             // 'no_surat'   => 'unique:suratmasuk|min:5',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
         ]);
-        $suratkeluar = new Suratkeluar();
-        $suratkeluar->update($request->all());
-        $suratkeluar->save();
-        return redirect('suratkeluar')->with("sukses", "Data Surat Masuk Berhasil diubah");
-
-     }
+        Surat::where('id',$id)->update(['keterangan'=>"terverifikasi"]);
+        // $surat = Surat::find($id);
+        // $surat_baru = new Suratkeluar();
+        // $surat_baru->no_surat          = $surat->no_surat;
+        // $surat_baru->lampiran          = $surat->lampiran;
+        // $surat_baru->tempat_surat      = $surat->tempat_surat;
+        // $surat_baru->tgl_surat         = $surat->tgl_surat;
+        // $surat_baru->perihal           = $surat->perihal;
+        // $surat_baru->tujuan_surat      = $surat->tujuan_surat;
+        // $surat_baru->salam_pembuka     = $surat->salam_pembuka;
+        // $surat_baru->isi               = $surat->isi ;
+        // $surat_baru->hari_tgl          = $surat->hari_tgl;
+        // $surat_baru->waktu             = $surat->waktu;
+        // $surat_baru->tempat            = $surat->tempat;
+        // $surat_baru->salam_penutup     = $surat->salam_penutup;
+        // $surat_baru->keterangan        = $surat->keterangan;
+        // $surat_baru->users_id = Auth::id();
+        // $surat_baru->save();
+        return redirect('surat')->with("sukses", "Data Berhasil di verifikasi");
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Suratkeluar  $suratkeluar
+     * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Surat $surat)
     {
-        Surat::destroy($id);
-        return redirect('suratkeluar')->with('success', 'Data berhasil di delete !');
+        //
     }
 }

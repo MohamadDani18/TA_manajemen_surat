@@ -18,7 +18,7 @@
         @endif
         <div class="row">
             <div class="col">
-                <h5><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Surat Keluar</h5>
+                <h5><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Permintaan Surat</h5>
                 <hr />
             </div>
         </div>
@@ -31,7 +31,7 @@
                             <th>No. Surat</th>
                             <th>Perihal</th>
                             <th>Tujuan Surat</th>
-                            {{-- <th>Tempat Surat</th> --}}
+                            <th>Tempat Surat</th>
                             <th>Tgl. Surat</th>
                              <th>Keterangan</th>
                             <th>Aksi</th>
@@ -39,30 +39,64 @@
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
-                        @foreach($suratkeluar as $surat)
+                        @foreach($surat as $surat)
                         <?php $no++ ;?>
                         <tr>
                             <td>{{$no}}</td>
                             <td>{{$surat->no_surat}}</td>
                             <td>{{$surat->perihal}}</td>
                             <td>{{$surat->tujuan_surat}}</td>
-                            {{-- <td>{{$surat->tempat_surat}}</td> --}}
+                            <td>{{$surat->tempat_surat}}</td>
                             <td>{{$surat->tgl_surat}}</td>
-                            <td><span class="badge badge-success">{{$surat->keterangan}}</span></td>
+                            <td>{{$surat->keterangan}}</td>
                             <td>
                                 <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">
 
                                     {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
                                     <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
-                                        <i class="fas fa-print"></i> Cetak</a>
+                                        <i class="fas fa-file-archive"></i> Show</a>
+
+                                    <a class="btn btn-success btn-sm my-1 mr-sm-1 " data-toggle="modal"
+                                    data-target="#tambahklasifikasi"><i class="nav-icon fas fa-edit"></i>Confirm</a>
 
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
+                                    {{-- <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button> --}}
 
                                 </form>
                             </td>
+                            <!--modal konfirmasi-->
+        <div class="modal fade" id="tambahklasifikasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i
+                            class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Konfirmasi Surat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('surat.update', $surat->id) }}" method="POST">
+                        {{csrf_field()}}
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col">
+                                <label for="nama">apakah anda ingin mengkonfirmasi?</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i>
+                            SETUJUI</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close"><i class="fas fa"></i>
+                            TIDAK</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
                         </tr>
 
                         @endforeach
@@ -72,6 +106,7 @@
 
             </div>
         </div>
+
     </div>
 </section>
 @endsection

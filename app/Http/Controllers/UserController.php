@@ -64,7 +64,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('user')->with('success','Data berhasil di simpan !');
+        return redirect('user')->with('sukses','Data berhasil di simpan !');
     }
 
     /**
@@ -103,11 +103,12 @@ class UserController extends Controller
 
         $user->name= $request->name;
         $user->email= $request->email;
+        $user->role= $request->role;
         $user->password= bcrypt($request->password);
 
         $user->save();
 
-        return redirect('user')->with('success', 'Data berhasil di update !');
+        return redirect('user')->with('sukses', 'Data berhasil di update !');
     }
 
     /**

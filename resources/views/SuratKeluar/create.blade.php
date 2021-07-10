@@ -58,7 +58,7 @@
                         </small>
           </div>
 
-
+            </div>
         <!-- /.box-body -->
       </form>
     </div>

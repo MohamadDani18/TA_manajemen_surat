@@ -29,7 +29,7 @@ class CheckRole
                 }
             }
 
-            return redirect('/');
+            return redirect('/home');
         }
     }
 }

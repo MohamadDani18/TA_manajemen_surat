@@ -24,7 +24,7 @@
 	</style>
 </head>
 <body>
-    @foreach($suratkeluar as $s)
+    @foreach($surat as $s)
 	<center>
 		<table>
 			<tr>
@@ -111,3 +111,4 @@
     </script>
 </body>
 </html>
+

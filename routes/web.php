@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('auth.login');
 });
 
 
@@ -25,16 +25,17 @@ Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], functi
     Route::resource('suratmasuk', 'SuratMasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('jenissurat', 'JenissuratController');
+    Route::resource('surat', 'Suratcontroller');
     // Route::resource('klasifikasi', 'KlasifikasiController');
     // Route::resource('disposisi', 'DisposisiController');
 
     //disposisi
     Route::get('/disposisi/{suratmasuk}', 'DisposisiController@index')->name('disposisi.index');
-    Route::post('/disposisi/{suratmasuk}', 'DisposisiController@store')->name('disposisi.store');
-    Route::get('/disposisi/{suratmasuk}/create', 'DisposisiController@create')->name('disposisi.create');
-    Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
-    Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
-    Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
+    // Route::post('/disposisi/{suratmasuk}', 'DisposisiController@store')->name('disposisi.store');
+    // Route::get('/disposisi/{suratmasuk}/create', 'DisposisiController@create')->name('disposisi.create');
+    // Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
+    // Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
+    // Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
     Route::get('/disposisi/{suratmasuk}/{id}/cetak', 'DisposisiController@cetak')->name('disposisi.cetak');
 
     Route::get('home', 'HomeController@index')->name('home');
@@ -49,6 +50,11 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function () {
     Route::resource('/user','UserController');
     Route::resource('klasifikasi', 'KlasifikasiController');
 
+    Route::post('/disposisi/{suratmasuk}', 'DisposisiController@store')->name('disposisi.store');
+    Route::get('/disposisi/{suratmasuk}/create', 'DisposisiController@create')->name('disposisi.create');
+    Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
+    Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
+    Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
 });
 
 

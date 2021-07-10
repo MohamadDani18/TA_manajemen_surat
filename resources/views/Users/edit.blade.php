@@ -4,6 +4,20 @@
 
 
 @section('content')
+@if(session('sukses'))
+        <div class="alert alert-success" role="alert">
+            {{session('sukses')}}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 <!-- Default box -->
 <div class="card mb-4">
     <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Edit user</div>
@@ -26,8 +40,7 @@
           <div class="form-group col-md-12">
             <label for="role">Level</label>
             <select name="role" id="role" autocomplete="off" class="form-control form-control-border border-width-2" required>
-                <option value="admin" @if ($u->role == 'admin') selected @endif>Admin
-                </option>
+                <option value="admin" @if ($u->role == 'admin') selected @endif>Admin </option>
                 <option value="pegawai" @if ($u->role == 'pegawai') selected @endif>Pegawai</option>
                 <option value="kepala" @if ($u->role == 'kepala') selected @endif>Kepala</option>
             </select>
@@ -50,4 +63,5 @@
     <!-- /.card-footer-->
   </div>
   <!-- /.card -->
+
 @endsection

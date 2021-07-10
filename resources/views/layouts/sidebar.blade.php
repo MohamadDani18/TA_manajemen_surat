@@ -63,7 +63,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="{{route('surat.create')}}" class="nav-link">
           <i class="nav-icon fas fa-plus"></i>
           <p>
             Buat Surat
@@ -115,6 +115,30 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{ route('surat.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-paper-plane"></i>
+          <p>
+            Verifikasi Surat
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('suratmasuk.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Surat Masuk
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('suratkeluar.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Surat Keluar
+          </p>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
@@ -123,24 +147,9 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="{{ route('suratmasuk.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-genderless"></i>
-                  <p>
-                    Surat Masuk
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('suratkeluar.index') }}" class="nav-link">
-                  <i class="nav-icon fas fa-genderless"></i>
-                  <p>
-                    Surat Keluar
-                  </p>
-                </a>
-              </li>
+
         </ul>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>

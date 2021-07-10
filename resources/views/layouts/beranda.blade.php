@@ -44,7 +44,7 @@
                         <!-- small box -->
                         <div class="small-box bg-maroon">
                             <div class="inner">
-                                <h3>{{DB::table('suratkeluar')->count()}}</h3>
+                                <h3>{{DB::table('buatsurat')->count()}}</h3>
                                 <p>Surat Keluar</p>
                             </div>
                             <div class="icon">
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    
+
     <!-- /.card-footer-->
   </div>
   <!-- /.card -->
