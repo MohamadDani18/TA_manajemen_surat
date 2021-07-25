@@ -55,23 +55,40 @@
                                     {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
                                     <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
                                         <i class="fas fa-print"></i> Cetak</a>
-
+                                    @if (auth()->user()->role == 'admin')
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
-
+                                    <button type="submit" onclick="'deleteData'" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
+                                     @endif
                                 </form>
                             </td>
                         </tr>
-
                         @endforeach
                     </tbody>
-
                 </table>
-
             </div>
         </div>
     </div>
 </section>
+<script>
+    function deleteData(id) {
+        swal({
+            title: "Anda Yakin ?",
+            text: "Data terhapus!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+            if (willDelete) {
+                $('#data' + id).submit();
+            }
+        })
+    }
+</script>
 @endsection

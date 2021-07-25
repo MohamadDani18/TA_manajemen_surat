@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Klasifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class KlasifikasiController extends Controller
 {
@@ -14,8 +16,8 @@ class KlasifikasiController extends Controller
      */
     public function index()
     {
-        $data_klasifikasi = \App\Klasifikasi::all();
-        return view('klasifikasi.index',['data_klasifikasi'=> $data_klasifikasi]);
+        $klasifikasi = \App\Klasifikasi::all();
+        return view('klasifikasi.index',['klasifikasi'=> $klasifikasi]);
     }
 
     /**
@@ -66,9 +68,10 @@ class KlasifikasiController extends Controller
      * @param  \App\Klasifikasi  $klasifikasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Klasifikasi $klasifikasi)
+    public function edit ($id)
     {
-        //
+        $klasifikasi = \App\Klasifikasi::find($id);
+        return view('klasifikasi.edit',['klasifikasi'=>$klasifikasi]);
     }
 
     /**
@@ -78,9 +81,17 @@ class KlasifikasiController extends Controller
      * @param  \App\Klasifikasi  $klasifikasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Klasifikasi $klasifikasi)
+    public function update (Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'min:5',
+            'kode' => 'max:2',
+            'uraian' => 'min:5',
+        ]);
+        $klasifikasi = \App\Klasifikasi::find($id);
+        $klasifikasi->update($request->all());
+        $klasifikasi->save();
+        return redirect('klasifikasi') ->with('sukses','Data Klasifikasi Berhasil Diedit');
     }
 
     /**

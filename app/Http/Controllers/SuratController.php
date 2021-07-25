@@ -20,8 +20,20 @@ class SuratController extends Controller
      */
     public function index(Request $request)
     {
+        // $surat = \App\Surat::where('keterangan','belum terverifikasi')->get();
+        // return view('surats.index', compact('surat'));
+    }
+
+    public function verifikasi(Request $request)
+    {
         $surat = \App\Surat::where('keterangan','belum terverifikasi')->get();
         return view('surats.index', compact('surat'));
+    }
+
+    public function surats(Request $request)
+    {
+        $surat = \App\Surat::where('keterangan','ditolak')->orWhere('keterangan','belum terverifikasi')->get();
+        return view('surats.permintaan', compact('surat'));
     }
 
     /**
@@ -43,12 +55,20 @@ class SuratController extends Controller
      */
     public function store (Request $request)
      {
+        $messages = [
+            'required' => ':attribute wajib diisi!!!',
+            'min' => ':attribute harus diisi minimal :min karakter!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter!!!',
+            'unique' => ':attribute sudah ada!!!',
+        ];
+
         $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:5',
+            'no_surat'   => 'required|unique:buatsurat|min:5',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
-        ]);
+        ],$messages);
+
         $surat = new Surat();
         $surat->no_surat          = $request->input('no_surat');
         $surat->lampiran          = $request->input('lampiran');
@@ -86,9 +106,10 @@ class SuratController extends Controller
      * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Surat $surat)
+    public function edit($id)
     {
-        //
+        $surat = Surat::where('id',$id)->get();
+        return view('surats.edit', ['surat' => $surat]);
     }
 
     /**
@@ -100,13 +121,19 @@ class SuratController extends Controller
      */
     public function update(Request $request, $id)
     {
+            $messages = [
+                'min' => ':attribute harus diisi minimal :min karakter!!!',
+                'max' => ':attribute harus diisi maksimal :max karakter!!!',
+                'unique' => ':attribute sudah ada!!!',
+            ];
+
             $request->validate([
-            // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:5',
-            // 'isi'        => 'min:5',
-            // 'keterangan' => 'min:5',
-        ]);
-        Surat::where('id',$id)->update(['keterangan'=>"terverifikasi"]);
+                'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
+                'no_surat'   => 'unique:buatsurat|min:5',
+                'isi'        => 'min:5',
+                'keterangan' => 'min:5',
+            ],$messages);
+        // Surat::where('id',$id)->update(['keterangan'=>"terverifikasi"]);
         // $surat = Surat::find($id);
         // $surat_baru = new Suratkeluar();
         // $surat_baru->no_surat          = $surat->no_surat;
@@ -123,9 +150,26 @@ class SuratController extends Controller
         // $surat_baru->salam_penutup     = $surat->salam_penutup;
         // $surat_baru->keterangan        = $surat->keterangan;
         // $surat_baru->users_id = Auth::id();
-        // $surat_baru->save();
-        return redirect('surat')->with("sukses", "Data Berhasil di verifikasi");
+        $surat = Surat::findOrFail($id);
+        $surat->update($request->all());
+        $surat->save();
+        return redirect('verifikasi')->with("sukses", "Data telah di konfirmasi");
     }
+
+    // public function perbarui(Request $request, $id)
+    // {
+    //         $request->validate([
+    //         // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
+    //         // 'no_surat'   => 'unique:suratmasuk|min:5',
+    //         // 'isi'        => 'min:5',
+    //         // 'keterangan' => 'min:5',
+    //     ]);
+    //     $surat = Surat::findOrFail($id);
+    //     $surat->update($request->all());
+    //     $surat->keterangan        = 'Belum Terverifikasi';
+    //     $surat->save();
+    //     return redirect('/permintaan-surat')->with("sukses", "Data telah di ubah");
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -133,8 +177,9 @@ class SuratController extends Controller
      * @param  \App\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Surat $surat)
+    public function destroy($id)
     {
-        //
+        Surat::destroy($id);
+        return redirect('suratkeluar')->with('success', 'Data berhasil di delete !');
     }
 }

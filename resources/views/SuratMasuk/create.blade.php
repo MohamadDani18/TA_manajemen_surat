@@ -6,8 +6,22 @@
 @section('content')
 
 <!-- Default box -->
+@if(session('sukses'))
+        <div class="alert alert-success" role="alert">
+            {{session('sukses')}}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 <div class="card mb-4">
-    <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Tambah Surat Keluar</div>
+    <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Tambah Surat Masuk</div>
     <div class="card-body">
       <!-- form start -->
       <form action="{{ route('suratmasuk.store') }}" method="post" enctype="multipart/form-data">
@@ -29,7 +43,7 @@
             <label for="kode">Kode Klasifikasi</label>
                     <select name="kode" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
                         required>
-                        <option value="">-- Pilih Klasifikasi Surat --</option>
+                        <option >-- Pilih Klasifikasi Surat --</option>
                         @foreach($data_klasifikasi as $klasifikasi)
                         <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}} ( {{$klasifikasi->kode}} )
                         </option>
@@ -55,7 +69,7 @@
                         <input name="filemasuk" type="file" class="form-control-file" id="exampleFormControlFile1"
                             required>
                         <small id="exampleFormControlFile1" class="text-danger">
-                            Pastikan file anda ( jpg,jpeg,png,doc,docx,pdf ) !!!
+                            Pastikan file anda ( jpg,jpeg,png ) !!!
                         </small>
           </div>
 

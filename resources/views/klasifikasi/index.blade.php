@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
-                        @foreach($data_klasifikasi as $klasifikasi)
+                        @foreach($klasifikasi as $klasifikasi)
                         <?php $no++ ;?>
                         <tr>
                             <td>{{$no}}</td>

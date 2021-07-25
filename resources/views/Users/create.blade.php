@@ -38,7 +38,7 @@
           <div class="form-group col-md-12">
             <label for="role">Level</label>
                     <select name="role" id="role" class="form-control form-control-border border-width-2" required>
-                        <option value="1">Administrator</option>
+                        {{-- <option value="1">Administrator</option> --}}
                         <option value="2">Pegawai</option>
                         <option value="3">Kepala</option>
                     </select>

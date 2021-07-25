@@ -58,6 +58,11 @@
                             <td>{{$suratmasuk->asal_surat}}</td>
                             <td>{{$suratmasuk->kode}}</td>
                             <td>{{$suratmasuk->tgl_surat}}</td>
+                            <td>
+                                <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
+                                    class="btn btn-warning btn-sm my-1 mr-sm-1"><i
+                                        class="fas fa-paperclip"></i> Disposisi</a>
+                            </td>
                             {{--  <td>
                                 @if($suratmasuk->filemasuk!= NULL)
                                    <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
@@ -65,7 +70,7 @@
                                     <h5 style="color:red">Tidak ada Gambar</h5>
                                 @endif
                             </td>  --}}
-                            <td>
+                            {{-- <td>
                                 @php
                                         $status = 0;
                                @endphp
@@ -84,7 +89,7 @@
                                         class="fas fa-paperclip"></i> </a>Wait Disposisi
                                 @endif
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>
                                 <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('suratmasuk.destroy',$suratmasuk->id) }}" method="POST">
 
@@ -118,49 +123,28 @@
             </div>
         </div>
 
-        <!-- Modal Tambah -->
-        {{--  <div class="modal fade" id="tambahdisposisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><i
-                                class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Tambah Data Disposisi</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('disposisi.store') }}" method="POST">
-                            {{csrf_field()}}
-                            <div class="row">
-                                <div class="col">
-                                    <label for="tujuan">Tujuan</label>
-                                    <input name="tujuan" type="text" class="form-control bg-light" id="tujuan"
-                                        placeholder="tujuan disposisi" required>
-                                    <label for="isi">Isi</label>
-                                    <input name="isi" type="text" class="form-control bg-light" id="isi"
-                                        placeholder="isi disposisi" required>
-                                    <label for="sifat">Sifat</label>
-                                    <input name="sifat" type="text" class="form-control bg-light" id="sifat"
-                                        placeholder="contoh: segera" required>
-                                    <label for="batas_waktu">Batas Waktu</label>
-                                    <input name="batas_waktu" type="date" class="form-control bg-light" id="sifat"
-                                    placeholder="batas waktu" required>
-                                    <label for="catatan">Catatan</label>
-                                    <textarea name="catatan" class="form-control bg-light" id="catatan" rows="3"
-                                        placeholder="catatan disposisi" required></textarea>
-                                </div>
-                            </div>
-                            <hr>
-                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i>
-                                SIMPAN</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>  --}}
-
     </div>
 </section>
+
+<script>
+    function deleteData(id) {
+        swal({
+            title: "Anda Yakin ?",
+            text: "Data terhapus!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+            if (willDelete) {
+                $('#data' + id).submit();
+            }
+        })
+    }
+</script>
+
 @endsection

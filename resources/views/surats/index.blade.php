@@ -18,7 +18,7 @@
         @endif
         <div class="row">
             <div class="col">
-                <h5><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Permintaan Surat</h5>
+                <h5><i class="nav-icon fas fa-envelope my-1 btn-sm-1"></i> Verifikasi Surat</h5>
                 <hr />
             </div>
         </div>
@@ -84,14 +84,17 @@
                         @method('PUT')
                         <div class="row">
                             <div class="col">
-                                <label for="nama">apakah anda ingin mengkonfirmasi?</label>
+                                <select name="keterangan" class="custom-select my-1 mr-sm-2 bg-light" id="keterangan" required>
+                                    <option>Terverifikasi</option>
+                                    <option>ditolak</option>
+                                </select>
                             </div>
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i>
-                            SETUJUI</button>
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close"><i class="fas fa"></i>
-                            TIDAK</button>
+                            SUBMIT</button>
+                        {{--  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close"><i class="fas fa"></i>
+                            TIDAK</button>  --}}
                     </form>
                 </div>
             </div>

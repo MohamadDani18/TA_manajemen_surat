@@ -6,45 +6,46 @@
 @section('content')
 
 
-
 <div class="card mb-4">
     <div class="card-header"><i class="far fa-list-alt mr-1"></i></i>Detail Surat Masuk</div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered">
-                @foreach ($suratmasuk as $w)
+                @foreach ($suratmasuk as $suratmasuk)
                     <tr>
                         <th width="25%">Asal Surat</th>
-                        <td>{{$w->asal_surat}}</td>
+                        <td>{{$suratmasuk->asal_surat}}</td>
                     </tr>
                     <tr>
                         <th>Nomer Surat</th>
-                        <td>{{$w->no_surat}}</td>
+                        <td>{{$suratmasuk->no_surat}}</td>
                     </tr>
+                    {{-- <tr>
+                        <th>Isi Ringkas</th>
+                        <td>{{$w->isi}}</td>
+                    </tr> --}}
                     <tr>
-                        <th>Penerima Surat</th>
-                        <td>{{$w->penerima_surat}}</td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Surat</th>
-                        <td>{{$w->jenis_surat}}</td>
+                        <th>Kode Klasifikasi</th>
+                        <td>{{$suratmasuk->kode}}</td>
                     </tr>
                     <tr>
                         <th>Tanggal Surat</th>
-                        <td>{{$w->tanggal_surat}}</td>
+                        <td>{{$suratmasuk->tgl_surat}}</td>
                     </tr>
                     <tr>
                         <th>Isi Ringkas</th>
-                        <td>{{$w->isi_ringkas}}</td>
+                        <td>{{$suratmasuk->isi}}</td>
                     </tr>
                     <tr>
                         <th>File</th>
                         <td>
-                            @if($w->gambar)
-                            <img width="25%" src="{{asset('/storage/'.$w->gambar)}}">
-                            @else
-                            <img src="https://duniatravel.co.id/wp-content/uploads/logo-wonderful-indonesia.jpg" alt="" width="25%">
-                            @endif
+
+                                @if($suratmasuk->filemasuk!= NULL)
+                                   <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
+                                @else
+                                    <h5 style="color:red">Tidak ada Gambar</h5>
+                                @endif
+
                         </td>
                     </tr>
 

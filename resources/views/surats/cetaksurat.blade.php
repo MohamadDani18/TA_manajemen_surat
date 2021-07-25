@@ -28,7 +28,7 @@
 	<center>
 		<table>
 			<tr>
-				<td><img src="https://disdukcapil.tegalkab.go.id/pelayanan/assets/img/kab/3328.png" width="90" height="90"></td>
+				<td><img src="{{asset('adminLTE/')}}/dist/img/logocapil.png" width="90" height="90"></td>
 				<td>
 				<center>
 					<font size="4">PEMERINTAHAN KOTA TEGAL</font><br>
@@ -101,7 +101,7 @@
 		<table width="625">
 			<tr>
 				<td width="430"><br><br><br><br></td>
-				<td class="text" align="center">Kepala Dinas<br><br><br><br>{{$s->tertanda}}</td>
+				<td class="text" align="center">Kepala Dinas<br><img src="{{asset('adminLTE/')}}/dist/img/ttd.png" width="60" height="60"><br>Basuki, S.E.,M.M</td>
 			</tr>
 	     </table>
 	</center>

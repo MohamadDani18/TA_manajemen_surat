@@ -24,8 +24,8 @@ Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], functi
 
     Route::resource('suratmasuk', 'SuratMasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
-    Route::resource('jenissurat', 'JenissuratController');
     Route::resource('surat', 'Suratcontroller');
+
     // Route::resource('klasifikasi', 'KlasifikasiController');
     // Route::resource('disposisi', 'DisposisiController');
 
@@ -50,11 +50,20 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function () {
     Route::resource('/user','UserController');
     Route::resource('klasifikasi', 'KlasifikasiController');
 
+    // Route::get('/disposisi/{suratmasuk}', 'DisposisiController@index')->name('disposisi.index');
     Route::post('/disposisi/{suratmasuk}', 'DisposisiController@store')->name('disposisi.store');
     Route::get('/disposisi/{suratmasuk}/create', 'DisposisiController@create')->name('disposisi.create');
     Route::get('/disposisi/{suratmasuk}/{id}/edit', 'DisposisiController@edit')->name('disposisi.edit');
     Route::get('/disposisi/{suratmasuk}/{id}', 'DisposisiController@update')->name('disposisi.update');
     Route::delete('disposisi/{suratmasuk}/{id}', 'DisposisiController@destroy')->name('disposisi.destroy');
+    // Route::get('/disposisi/{suratmasuk}/{id}/cetak', 'DisposisiController@cetak')->name('disposisi.cetak');
 });
 
+Route::group(['middleware' => ['auth','checkRole:kepala']], function () {
+    Route::get('verifikasi', 'SuratController@verifikasi')->name('surat.verifikasi');
+});
 
+Route::group(['middleware' => ['auth','checkRole:pegawai']], function () {
+    Route::get('permintaan-surat', 'SuratController@surats')->name('surat.permintaan');
+    Route::get('/surat/create', 'SuratController@create')->name('surat.create');
+});

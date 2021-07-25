@@ -63,6 +63,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('surat.permintaan')}}" class="nav-link">
+          <i class="nav-icon fas fa-paper-plane"></i>
+          <p>
+            Permintaan Surat
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{route('surat.create')}}" class="nav-link">
           <i class="nav-icon fas fa-plus"></i>
           <p>
@@ -115,7 +123,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('surat.index') }}" class="nav-link">
+        <a href="{{ route('surat.verifikasi') }}" class="nav-link">
           <i class="nav-icon fas fa-paper-plane"></i>
           <p>
             Verifikasi Surat

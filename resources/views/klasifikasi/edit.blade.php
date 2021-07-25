@@ -17,11 +17,12 @@
             </ul>
         </div>
         @endif
-        <form action="/klasifikasi/{{$klasifikasi->id}}/update" method="POST">
+        <form action="{{ route('klasifikasi.update',$klasifikasi->id) }}" method="POST" enctype="multipart/form-data">
             <h3><i class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Edit Klasifikasi</h3>
             <hr>
             {{csrf_field()}}
             <div class="row">
+                @method('PUT')
                 <div class="col-6">
                     <label for="nama">Nama</label>
                     <input name="nama" type="text" class="form-control bg-light" id="nama"

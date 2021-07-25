@@ -106,16 +106,25 @@ class SuratkeluarController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'required' => ':attribute wajib diisi!!!',
+            'min' => ':attribute harus diisi minimal :min karakter!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter!!!',
+            'unique' => ':attribute sudah ada!!!',
+        ];
+
         $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            // 'no_surat'   => 'unique:suratmasuk|min:5',
+            'no_surat'   => 'min:5',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
-        ]);
-        $suratkeluar = new Suratkeluar();
-        $suratkeluar->update($request->all());
-        $suratkeluar->save();
-        return redirect('suratkeluar')->with("sukses", "Data Surat Masuk Berhasil diubah");
+        ],$messages);
+
+        $surat = Surat::findOrFail($id);
+        $surat->update($request->all());
+        $surat->keterangan        = 'Belum Terverifikasi';
+        $surat->save();
+        return redirect('/permintaan-surat')->with("sukses", "Data telah di ubah");
 
      }
 

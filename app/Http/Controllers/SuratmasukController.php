@@ -11,6 +11,7 @@ use SweetAlert;
 use DataTables;
 use Storage;
 use PDF;
+use File;
 
 class SuratmasukController extends Controller
 {
@@ -38,12 +39,20 @@ class SuratmasukController extends Controller
     //function untuk tambah
      public function store (Request $request)
      {
+        $messages = [
+            'required' => ':attribute wajib diisi!!!',
+            'min' => ':attribute harus diisi minimal :min karakter!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter!!!',
+            'unique' => ':attribute sudah ada!!!',
+            'mimes' => 'format gambar yang anda masukan salah!!!',
+        ];
+
         $request->validate([
-            'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            'no_surat'   => 'unique:suratmasuk|min:5',
+            'filemasuk'  => 'mimes:jpg,jpeg,png',
+            'no_surat'   => 'required|unique:suratmasuk|min:5',
             'isi'        => 'min:5',
             'keterangan' => 'min:5',
-        ]);
+        ],$messages);
         $suratmasuk = new SuratMasuk();
         $suratmasuk->no_surat   = $request->input('no_surat');
         $suratmasuk->asal_surat = $request->input('asal_surat');
@@ -61,10 +70,10 @@ class SuratmasukController extends Controller
      }
 
     //function untuk melihat file
-    public function show($id_suratmasuk)
+    public function show($id)
     {
-        $suratmasuk = \App\SuratMasuk::find($id_suratmasuk);
-        return view('SuratMasuk.detail',['suratmasuk'=>$suratmasuk]);
+        $suratmasuk = Suratmasuk::where('id',$id)->get();
+        return view('SuratMasuk.detail', ['suratmasuk' => $suratmasuk]);
     }
 
     // //function untuk download file
@@ -92,12 +101,20 @@ class SuratmasukController extends Controller
     }
     public function update (Request $request, $id)
     {
+        $messages = [
+            'required' => ':attribute wajib diisi!!!',
+            'min' => ':attribute harus diisi minimal :min karakter!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter!!!',
+            'unique' => ':attribute sudah ada!!!',
+
+        ];
+
         $request->validate([
-            'filemasuk' => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            'no_surat' => 'min:5',
-            'isi' => 'min:5',
+            'filemasuk'  => 'mimes:jpg,jpeg,png',
+            'no_surat'   => 'required|min:5',
+            'isi'        => 'min:5',
             'keterangan' => 'min:5',
-        ]);
+        ],$messages);
 
         $suratmasuk = Suratmasuk::findOrFail($id);
         $suratmasuk->update($request->all());
@@ -114,13 +131,16 @@ class SuratmasukController extends Controller
     //function untuk hapus
     public function destroy($id)
     {
-        SuratMasuk::destroy($id);
+        $suratmasuk = Suratmasuk::findorfail($id);
+        File::delete($suratmasuk['filemasuk']);
+        $suratmasuk->delete();
+
         return redirect('suratmasuk')->with('sukses', 'Data Surat Masuk Berhasil Dihapus');
     }
 
     public function cetakLaporan()
     {
-        $jenissurat = Jenissurat::all();
+        // $jenissurat = Jenissurat::all();
         $suratmasuk = Suratmasuk::get();
         return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
     }

@@ -27,7 +27,7 @@ class CreateBuatsuratTable extends Migration
             $table->string('waktu');
             $table->string('tempat');
             $table->text('salam_penutup');
-            $table->enum('keterangan',['belum terverifikasi','terverifikasi']);
+            $table->enum('keterangan',['Belum Terverifikasi','Terverifikasi','ditolak']);
             $table->integer('users_id')->unsigned();
             $table->timestamps();
         });
