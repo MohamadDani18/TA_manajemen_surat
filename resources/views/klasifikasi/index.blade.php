@@ -51,7 +51,7 @@
                         <tr>
                             <td>{{$no}}</td>
                             <td>{{$klasifikasi->nama}}</td>
-                            <td>{{$klasifikasi->kode}}</td>
+                            <td>{{$klasifikasi->id}}</td>
                             <td>{{$klasifikasi->uraian}}</td>
                             <td>
                                 <form action="{{ route('klasifikasi.destroy',$klasifikasi->id) }}" method="POST">
@@ -131,9 +131,6 @@
                                     <label for="nama">Nama</label>
                                     <input name="nama" type="text" class="form-control bg-light" id="nama"
                                         placeholder="Nama Klasifikasi" required>
-                                    <label for="kode">Kode</label>
-                                    <input name="kode" type="text" class="form-control bg-light" id="kode"
-                                        placeholder="Kode Klasifikasi" required>
                                     <label for="uraian">Uraian</label>
                                     <textarea name="uraian" class="form-control bg-light" id="uraian" rows="3"
                                         placeholder="Uraian Klasifikasi" required></textarea>

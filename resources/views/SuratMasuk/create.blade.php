@@ -45,7 +45,7 @@
                         required>
                         <option >-- Pilih Klasifikasi Surat --</option>
                         @foreach($data_klasifikasi as $klasifikasi)
-                        <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}} ( {{$klasifikasi->kode}} )
+                        <option value="{{$klasifikasi->nama}}">{{$klasifikasi->nama}} ( {{$klasifikasi->id}} )
                         </option>
                         @endforeach
                     </select>

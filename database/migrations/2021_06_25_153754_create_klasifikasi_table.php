@@ -16,7 +16,6 @@ class CreateKlasifikasiTable extends Migration
         Schema::create('klasifikasi', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            $table->string('kode');
             $table->text('uraian');
             $table->timestamps();
         });

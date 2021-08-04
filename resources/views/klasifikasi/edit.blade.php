@@ -27,15 +27,13 @@
                     <label for="nama">Nama</label>
                     <input name="nama" type="text" class="form-control bg-light" id="nama"
                         placeholder="Nama Klasifikasi" value="{{$klasifikasi->nama}}" required>
-                    <label for="kode">Kode</label>
+                    {{-- <label for="kode">Kode</label>
                     <input name="kode" type="text" class="form-control bg-light" id="kode"
-                        placeholder="Kode Klasifikasi" value="{{$klasifikasi->kode}}" required>
-                </div>
-                <div class="col-6">
-                    <label for="uraian">Uraian</label>
-                    <textarea name="uraian" class="form-control bg-light" id="uraian" rows="3"
-                        placeholder="Uraian Klasifikasi" value="{{$klasifikasi->uraian}}"
-                        required>{{$klasifikasi->uraian}}</textarea>
+                        placeholder="Kode Klasifikasi" value="{{$klasifikasi->kode}}" required> --}}
+                        <label for="uraian">Uraian</label>
+                        <textarea name="uraian" class="form-control bg-light" id="uraian" rows="3"
+                            placeholder="Uraian Klasifikasi" value="{{$klasifikasi->uraian}}"
+                            required>{{$klasifikasi->uraian}}</textarea>
                 </div>
             </div>
             <hr>

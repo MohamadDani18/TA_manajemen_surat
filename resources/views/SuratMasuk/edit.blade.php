@@ -57,13 +57,12 @@
                 </div>
                  <div class="form-group col-md-6">
                     <div class="form-group">
-                        <div class="form-line">
-                            <label>File Surat</label>
-                            <div class="fallback">
-                                <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="100px" width="auto" alt="tidak ada gambar"><br>
-                                <input name="filemasuk" type="file" multiple value="{{ $suratmasuk->filemasuk }}" />
-                            </div>
-                        </div>
+                        <label for="exampleFormControlFile1">File</label>
+                        <input name="filemasuk" type="file" class="form-control-file" id="exampleFormControlFile1"
+                            value="{{$suratmasuk->filemasuk}}">
+                        <small id="exampleFormControlFile1" class="text-warning">
+                            Pastikan file anda ( jpg,jpeg,png,doc,docx,pdf ) !!!
+                        </small>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,7 @@
                             <td>{{$surat->perihal}}</td>
                             <td>{{$surat->tujuan_surat}}</td>
                             <td>{{$surat->tempat_surat}}</td>
-                            <td>{{$surat->tgl_surat}}</td>
+                            <td>{{ \Carbon\Carbon::parse($surat->tgl_surat)->format('d-m-Y')}}</td>
                             <td>{{$surat->keterangan}}</td>
                             <td>
                                 <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">

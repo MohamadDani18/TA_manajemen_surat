@@ -10,11 +10,6 @@ class Suratmasuk extends Model
     protected $table = 'suratmasuk';
     protected $fillable = ['no_surat','asal_surat','isi','kode','tgl_surat','filemasuk','users_id'];
 
-    public function getCreatedAtAttribute()
-    {
-        return Carbon::parse($this->attributes['tgl_surat'])
-            ->translatedFormat('d F Y');
-    }
 
     //function relasi ke disposisi
     public function disp()

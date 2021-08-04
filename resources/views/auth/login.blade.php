@@ -7,20 +7,20 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <img src="{{asset('adminLTE/')}}/login/images/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+            <img src="{{asset('adminLTE/')}}/login/images/mail.svg" alt="Image" class="img-fluid">
           </div>
           <div class="col-md-6 contents">
             <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="mb-4">
-                <h3>Sign In</h3>
-                <p class="mb-2">Aplikasi Manajemen Persuratan Disdukcapil Kota Tegal</p>
+                <h3>Sign In </h3>
+                <p class="mb-4 text-dark">Aplikasi Manajemen Persuratan Disdukcapil Kota Tegal</p>
               </div>
               <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group first">
                   <label for="email">Email</label>
-                  <input id="email" value="{{ old('email') }}"  type="email" class="form-control @error('email') is-invalid @enderror" name="email"  required autocomplete="email" autofocus>
+                  <input id="email" value="{{ old('email') }}"  type="email" class="form-control  @error('email') is-invalid @enderror" name="email"  required autocomplete="email" autofocus>
                   @error('email')
                   <span class="invalid-feedback" role="alert">
                       <strong>Email yang anda masukan tidak terdaftar</strong>
@@ -40,7 +40,7 @@
                   <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
                 </div> --}}
 
-                <input type="submit" value="LOGIN" class="btn btn-block btn-primary">
+                <input type="submit" value="LOGIN" class="btn btn-block btn-dark">
 
                 <!-- <span class="d-block text-left my-4 text-muted">&mdash; or login with &mdash;</span>
 

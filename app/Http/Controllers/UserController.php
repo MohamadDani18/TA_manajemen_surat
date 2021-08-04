@@ -17,25 +17,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
-            $data = User::latest()->get();
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function($data){
-                    $c = csrf_field();
-                    return '
-                        <form action="'.route('user.destroy', $data->id).'" method="post"
-                        id="data'. $data->id.'">
-                        '.$c.'
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form>
-                            <a href="'.route('user.edit', $data->id).'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>
-                            <button onclick="deleteData('. $data->id .')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;Delete</button>
-                        ';
-                })
-            ->RawColumns(['action'])
-            ->make(true);
-        }
-        return view('users.user');
+        $user = \App\User::where('role','pegawai')->get();
+        return view('users.user', compact('user'));
     }
 
     /**
@@ -45,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $unit_kerja= \App\Unitkerja::all();
+        return view('users.create', compact('unit_kerja'));
     }
 
     /**
@@ -56,8 +40,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => ':attribute wajib diisi!!!',
+            'min' => ':attribute harus diisi minimal :min karakter!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter!!!',
+            'unique' => ':attribute sudah ada!!!',
+            'mimes' => 'format gambar yang anda masukan salah!!!',
+        ];
+
+        $request->validate([
+            'email'   => 'required|unique:users',
+        ],$messages);
+
         $user = new User;
         $user->name= $request->name;
+        $user->unit_kerja= $request->unit_kerja;
         $user->email= $request->email;
         $user->role= $request->role;
         $user->password= bcrypt($request->password);
@@ -87,7 +84,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id',$id)->get();
-        return view('users.edit', ['user' => $user]);
+        $unit_kerja= \App\Unitkerja::all();
+        return view('users.edit', ['user' => $user, 'unit_kerja' => $unit_kerja]);
     }
 
     /**
@@ -99,9 +97,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $messages = [
+        //     'required' => ':attribute wajib diisi!!!',
+        //     'min' => ':attribute harus diisi minimal :min karakter!!!',
+        //     'max' => ':attribute harus diisi maksimal :max karakter!!!',
+        //     'unique' => ':attribute sudah ada!!!',
+        //     'mimes' => 'format gambar yang anda masukan salah!!!',
+        // ];
+
+        // $request->validate([
+        //     'email'   => 'required|unique:users',
+        // ],$messages);
+
         $user = User::findOrFail($id);
 
         $user->name= $request->name;
+        $user->unit_kerja= $request->unit_kerja;
         $user->email= $request->email;
         $user->role= $request->role;
         $user->password= bcrypt($request->password);

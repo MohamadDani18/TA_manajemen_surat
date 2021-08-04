@@ -34,6 +34,17 @@
             <input type="text" name="name" value="{{$u->name}}" autocomplete="off" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Nama">
           </div>
           <div class="form-group col-md-12">
+            <label for="unit_kerja">Unit Kerja</label>
+                    <select name="unit_kerja" class="form-control form-control-border border-width-2" id="unit_kerja"
+                        value="{{$u->unit_kerja}}" required>
+                        <option selected>{{$u->unit_kerja}}</option>
+                        @foreach($unit_kerja as $unit_kerja)
+                        <option value="{{$unit_kerja->unit_kerja}}">{{$unit_kerja->unit_kerja}}
+                        </option>
+                        @endforeach
+                    </select>
+          </div>
+          <div class="form-group col-md-12">
             <label for="">Email</label>
             <input type="email" name="email" value="{{$u->email}}" autocomplete="off" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Email">
           </div>

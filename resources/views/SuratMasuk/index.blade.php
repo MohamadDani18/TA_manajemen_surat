@@ -57,7 +57,7 @@
                             <td>{{$suratmasuk->isi}}</td>
                             <td>{{$suratmasuk->asal_surat}}</td>
                             <td>{{$suratmasuk->kode}}</td>
-                            <td>{{$suratmasuk->tgl_surat}}</td>
+                            <td>{{ \Carbon\Carbon::parse($suratmasuk->tgl_surat)->format('d-m-Y')}}</td>
                             <td>
                                 <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
                                     class="btn btn-warning btn-sm my-1 mr-sm-1"><i
@@ -103,7 +103,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
+                                    {{-- <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button> --}}
                                     @endif
                                 </form>
                                 {{-- @if (auth()->user()->role == '1')

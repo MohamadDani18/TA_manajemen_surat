@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use SweetAlert;
 use DataTables;
 use Storage;
+use DateTime;
 
 class SuratController extends Controller
 {
@@ -26,13 +27,13 @@ class SuratController extends Controller
 
     public function verifikasi(Request $request)
     {
-        $surat = \App\Surat::where('keterangan','belum terverifikasi')->get();
+        $surat = \App\Surat::where('keterangan','belum terverifikasi')->orderBy('id','DESC')->get();
         return view('surats.index', compact('surat'));
     }
 
     public function surats(Request $request)
     {
-        $surat = \App\Surat::where('keterangan','ditolak')->orWhere('keterangan','belum terverifikasi')->get();
+        $surat = \App\Surat::where('keterangan','ditolak')->orWhere('keterangan','belum terverifikasi')->orderBy('id','DESC')->get();
         return view('surats.permintaan', compact('surat'));
     }
 
@@ -73,7 +74,7 @@ class SuratController extends Controller
         $surat->no_surat          = $request->input('no_surat');
         $surat->lampiran          = $request->input('lampiran');
         $surat->tempat_surat      = $request->input('tempat_surat');
-        $surat->tgl_surat         = $request->input('tgl_surat');
+        $surat->tgl_surat         = new DateTime();
         $surat->perihal           = $request->input('perihal');
         $surat->tujuan_surat      = $request->input('tujuan_surat');
         $surat->salam_pembuka     = $request->input('salam_pembuka');

@@ -33,7 +33,8 @@ class DisposisiController extends Controller
     public function create(SuratMasuk $suratmasuk)
     {
         $smasuk = $suratmasuk->findorfail($suratmasuk->id);
-        return view('disposisi.create', compact('smasuk'));
+        $unit_kerja= \App\Unitkerja::all();
+        return view('disposisi.create', compact('smasuk','unit_kerja'));
     }
 
     /**
@@ -87,7 +88,8 @@ class DisposisiController extends Controller
     {
         $smasuk = $suratmasuk->findorfail($suratmasuk->id);
         $disp = Disposisi::findorfail($id);
-        return view('disposisi.edit', compact('disp','smasuk'));
+        $unit_kerja= \App\Unitkerja::all();
+        return view('disposisi.edit', compact('disp','smasuk','unit_kerja'));
     }
 
     /**

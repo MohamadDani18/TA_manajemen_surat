@@ -26,7 +26,7 @@
             <div class="col">
                 <a class="btn btn-danger btn-sm my-1 mr-sm-1" href="{{route('suratmasuk.index')}}" role="button"><i
                         class="fas fa-undo"></i> Kembali</a>
-                        @if (auth()->user()->role == 'admin')
+                        @if (auth()->user()->role == 'kepala')
                 <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('disposisi.create', $smasuk) }}"
                     role="button"><i class="fas fa-plus"></i> Tambah Data</a>
                     @endif
@@ -63,7 +63,7 @@
                                     method="post">
                                     @csrf
                                     @method('delete')
-                                    @if (auth()->user()->role == 'admin')
+                                    @if (auth()->user()->role == 'kepala')
                                     <a href="{{ route('disposisi.edit', [$smasuk, $disposisi->id]) }}"
                                         class="btn btn-primary btn-sm my-1 mr-sm-1" role="button"><i
                                             class="nav-icon fas fa-pencil-alt"></i> Edit</a>
@@ -71,10 +71,10 @@
                                     <a class="btn btn-primary btn-sm my-1 mr-sm-1"
                                          href="{{ route('disposisi.cetak', [$smasuk, $disposisi->id]) }}"
                                         target="_blank" role="button"><i class="fas fa-print"></i> Cetak</a>
-                                    @if (auth()->user()->role == 'admin')
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1"
+                                    @if (auth()->user()->role == 'kepala')
+                                    {{-- <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1"
                                         onclick="return confirm('Hapus Data ?')"><i class="nav-icon fas fa-trash"></i>
-                                        Hapus</button>
+                                        Hapus</button> --}}
                                     @endif
                                 </form>
                             </td>

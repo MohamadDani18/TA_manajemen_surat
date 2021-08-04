@@ -39,20 +39,28 @@
                     <tr>
                         <th>File</th>
                         <td>
-
-                                @if($suratmasuk->filemasuk!= NULL)
-                                   <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
-                                @else
-                                    <h5 style="color:red">Tidak ada Gambar</h5>
-                                @endif
-
+                            <div class="row">
+                                <div class="col-8">
+                                    <h5>{{$suratmasuk->filemasuk}}</h5>
+                                </div>
+                                <div class=col-4>
+                                    <a style="float: right" class="btn btn-primary btn-sm my-4 mr-sm-2"
+                                        href="/datasuratmasuk/{{$suratmasuk->filemasuk}}" download="{{$suratmasuk->filemasuk}}"
+                                        role="button"><i class="fas fa-file-download"></i> Download</a>
+                                    {{-- <a style="float: right" class="btn btn-danger btn-sm my-4 mr-sm-2" href="/suratmasuk/index"
+                                        role="button"><i class="fas fa-undo"></i> Kembali</a> --}}
+                                </div>
+                            </div>
+                            
                         </td>
                     </tr>
 
                     @endforeach
             </table>
+
         </div>
     </div>
 </div>
+
 
 @endsection

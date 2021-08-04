@@ -28,7 +28,7 @@
 	<center>
 		<table>
 			<tr>
-				<td><img src="{{asset('adminLTE/')}}/dist/img/logocapil.png" width="90" height="90"></td>
+				<td><img src="{{asset('adminLTE/')}}/dist/img/logocapil.png" width="70" height="80"></td>
 				<td>
 				<center>
 					<font size="4">PEMERINTAHAN KOTA TEGAL</font><br>
@@ -43,18 +43,22 @@
 			</tr>
 		<table width="625">
 			<tr>
-				<td class="text2">{{$s->tempat_surat}}, {{$s->tgl_surat}}</td>
+				<td class="text2">{{$s->tempat_surat}}, {{ \Carbon\Carbon::parse($s->tgl_surat)->format('d-m-Y')}}</td>
 			</tr>
 		</table>
 		</table>
 		<table>
 			<tr class="text2">
 				<td>Nomer</td>
-				<td width="572">: {{$s->no_surat}}</td>
+				<td width="572"> : {{$s->no_surat}}</td>
+			</tr>
+            <tr>
+				<td>Lamp</td>
+				<td width="564"> : {{$s->lampiran}}</td>
 			</tr>
 			<tr>
 				<td>Perihal</td>
-				<td width="564">: {{$s->perihal}}</td>
+				<td width="564"> : {{$s->perihal}}</td>
 			</tr>
 		</table>
 		<br>
@@ -66,6 +70,14 @@
 		    </tr>
 		</table>
 		<br>
+        {{-- <table width="625">
+			<tr>
+		       <td>
+			       <center><font size="3">SURAT EDARAN</font></center>
+		       </td>
+		    </tr>
+		</table>
+		<br> --}}
 		<table width="625">
 			<tr>
 		       <td>
@@ -104,6 +116,15 @@
 				<td class="text" align="center">Kepala Dinas<br><img src="{{asset('adminLTE/')}}/dist/img/ttd.png" width="60" height="60"><br>Basuki, S.E.,M.M</td>
 			</tr>
 	     </table>
+         <table>
+			<tr class="625">
+				<td>Tembusan :</td>
+                <tr><td width="600">{{$s->tembusan1}}</td></tr>
+                <tr><td width="562">{{$s->tembusan2}}</td></tr>
+                <tr><td width="562">{{$s->tembusan3}}</td></tr>
+			</tr>
+
+		</table>
 	</center>
     @endforeach
     <script type="text/javascript">

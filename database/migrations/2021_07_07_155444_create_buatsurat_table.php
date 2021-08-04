@@ -27,6 +27,12 @@ class CreateBuatsuratTable extends Migration
             $table->string('waktu');
             $table->string('tempat');
             $table->text('salam_penutup');
+            $table->string('tembusan1')->nullable();
+            $table->string('tembusan2')->nullable();
+            $table->string('tembusan3')->nullable();
+            // $table->text('isi1')->nullable();
+            // $table->text('isi2')->nullable();
+            // $table->text('isi3')->nullable();
             $table->enum('keterangan',['Belum Terverifikasi','Terverifikasi','ditolak']);
             $table->integer('users_id')->unsigned();
             $table->timestamps();

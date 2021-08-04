@@ -44,11 +44,11 @@ class SuratmasukController extends Controller
             'min' => ':attribute harus diisi minimal :min karakter!!!',
             'max' => ':attribute harus diisi maksimal :max karakter!!!',
             'unique' => ':attribute sudah ada!!!',
-            'mimes' => 'format gambar yang anda masukan salah!!!',
+            'mimes' => 'format file yang anda masukan salah!!!',
         ];
 
         $request->validate([
-            'filemasuk'  => 'mimes:jpg,jpeg,png',
+            'filemasuk'  => 'mimes:pdf,jpg,jpeg,pdf,doc,docx',
             'no_surat'   => 'required|unique:suratmasuk|min:5',
             'isi'        => 'min:5',
             'keterangan' => 'min:5',
@@ -96,7 +96,7 @@ class SuratmasukController extends Controller
     public function edit ($id)
     {
         $data_klasifikasi = \App\Klasifikasi::all();
-        $suratmasuk = \App\SuratMasuk::find($id);
+        $suratmasuk = \App\Suratmasuk::find($id);
         return view('SuratMasuk.edit',['suratmasuk'=>$suratmasuk],['data_klasifikasi'=>$data_klasifikasi]);
     }
     public function update (Request $request, $id)
@@ -110,7 +110,7 @@ class SuratmasukController extends Controller
         ];
 
         $request->validate([
-            'filemasuk'  => 'mimes:jpg,jpeg,png',
+            'filemasuk'  => 'mimes:jpg,jpeg,png,pdf,doc,docx',
             'no_surat'   => 'required|min:5',
             'isi'        => 'min:5',
             'keterangan' => 'min:5',
@@ -152,6 +152,18 @@ class SuratmasukController extends Controller
 
     public function cetakLaporanFilter($tglawal, $tglakhir)
     {
+        // $messages = [
+        //     'required' => ':attribute wajib diisi!!!',
+        //     'min' => ':attribute harus diisi minimal :min karakter!!!',
+        //     'max' => ':attribute harus diisi maksimal :max karakter!!!',
+        //     'unique' => ':attribute sudah ada!!!',
+
+        // ];
+
+        // $request->validate([
+        //     'tgl_awal' => 'required',
+        //     'tgl_akhir' => 'required|date|after_or_equal:tgl_awal',
+        // ],$messages);
         // dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
         $suratmasuk = Suratmasuk::get()->whereBetween('tgl_surat', [$tglawal, $tglakhir]);
         return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));

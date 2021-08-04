@@ -24,7 +24,14 @@
             <div class="row">
                 <div class="col-6">
                     <label for="tujuan">Tujuan</label>
-                    <input name="tujuan" type="text" class="form-control bg-light" placeholder="Tujuan" required>
+                    <select name="tujuan" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
+                        required>
+                        {{-- <option >-- Pilih Tujuan Disposisi --</option> --}}
+                        @foreach($unit_kerja as $unit_kerja)
+                        <option value="{{$unit_kerja->unit_kerja}}">{{$unit_kerja->unit_kerja}}
+                        </option>
+                        @endforeach
+                    </select>
                     <label for="isi">Isi</label>
                     <input name="isi" type="text" class="form-control bg-light" placeholder="Isi" required>
                     <label for="batas_waktu">Tanggal</label>

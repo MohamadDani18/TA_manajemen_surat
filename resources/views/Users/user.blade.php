@@ -1,66 +1,75 @@
 @extends('layouts.master')
-
-@section('title')
-
-
 @section('content')
-
-<!-- Default box -->
-<div class="card mb-4">
-    <div class="card-header"><i class="fas fa-user-alt mr-1"></i>Data Users  <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm pull-right ml-2">Tambah Data</a></div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered data-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Level</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+<section class="content card" style="padding: 10px 10px 10px 10px ">
+    <div class="box">
+        @if(session('sukses'))
+        <div class="alert alert-success" role="alert">
+            {{session('sukses')}}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <div class="row">
+            <div class="col">
+                <h3><i class="nav-icon fas fa-user my-1 btn-sm-1"></i> Users</h3>
+                <hr>
+            </div>
+        </div>
+        <div>
+            <div class="col">
+                <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('user.create') }}" role="button"><i
+                        class="fas fa-plus"></i> Tambah Data</a>
+                <br><br>
+            </div>
+        </div>
+        <div class="row table-responsive">
+            <div class="col-12">
+                <table class="table table-hover table-head-fixed" id='tabelSuratmasuk'>
+                    <thead>
+                        <tr class="bg-light">
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Unit Kerja</th>
+                            <th>Email</th>
+                            <th>Level</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 0;?>
+                        @foreach($user as $pengguna)
+                        <?php $no++ ;?>
+                        <tr>
+                            <td>{{$no}}</td>
+                            <td>{{$pengguna->name}}</td>
+                            <td>{{$pengguna->unit_kerja}}</td>
+                            <td>{{$pengguna->email}}</td>
+                            <td>{{$pengguna->role}}</td>
+                            <td>
+                                <form action="{{ route('user.destroy', $pengguna->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <a href="{{ route('user.edit', $pengguna->id) }}"
+                                        class="btn btn-primary btn-sm my-1 mr-sm-1"><i
+                                            class="nav-icon fas fa-pencil-alt"></i> Edit</a>
+                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1"
+                                        onclick="return confirm('Hapus Data ?')"><i class="nav-icon fas fa-trash"></i>
+                                        Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-  <!-- /.card -->
-
-
-  <script>
-    $(document).ready(function(){
-        var table = $('.data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            autoWidth: true,
-            ajax: {url:"{{ route('user.index') }}"},
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'role', name: 'role'}, 
-                {data: 'action', name: 'action',orderable : false, searchable: false}
-            ]
-          });
-        });
-    function deleteData(id) {
-        swal({
-            title: "Anda Yakin ?",
-            text: "Data terhapus!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-            if (willDelete) {
-                $('#data' + id).submit();
-            }
-        })
-    }
-</script>
-
+</section>
 @endsection

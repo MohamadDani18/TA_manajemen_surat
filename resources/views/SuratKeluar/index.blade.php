@@ -47,7 +47,7 @@
                             <td>{{$surat->perihal}}</td>
                             <td>{{$surat->tujuan_surat}}</td>
                             {{-- <td>{{$surat->tempat_surat}}</td> --}}
-                            <td>{{$surat->tgl_surat}}</td>
+                            <td>{{ \Carbon\Carbon::parse($surat->tgl_surat)->format('d-m-Y')}}</td>
                             <td><span class="badge badge-success">{{$surat->keterangan}}</span></td>
                             <td>
                                 <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">
@@ -59,7 +59,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" onclick="'deleteData'" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
+                                    {{-- <button type="submit" onclick="'deleteData'" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button> --}}
                                      @endif
                                 </form>
                             </td>

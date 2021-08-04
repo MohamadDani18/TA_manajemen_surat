@@ -32,15 +32,26 @@
             <input type="text" name="name" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Nama">
           </div>
           <div class="form-group col-md-12">
+            <label for="unit_kerja">Unit Kerja</label>
+                    <select name="unit_kerja" class="form-control form-control-border border-width-2" id="inlineFormCustomSelectPref"
+                        required>
+                        {{-- <option >-- Pilih Tujuan Disposisi --</option> --}}
+                        @foreach($unit_kerja as $unit_kerja)
+                        <option value="{{$unit_kerja->unit_kerja}}">{{$unit_kerja->unit_kerja}}
+                        </option>
+                        @endforeach
+                    </select>
+          </div>
+          <div class="form-group col-md-12">
             <label for="">Email</label>
             <input type="email" name="email" class="form-control form-control-border border-width-2" id="" placeholder="Masukan Email">
           </div>
           <div class="form-group col-md-12">
             <label for="role">Level</label>
                     <select name="role" id="role" class="form-control form-control-border border-width-2" required>
-                        {{-- <option value="1">Administrator</option> --}}
-                        <option value="2">Pegawai</option>
-                        <option value="3">Kepala</option>
+                        <option value="admin">Administrator</option>
+                        <option value="pegawai">Pegawai</option>
+                        {{-- <option value="kepala">Kepala</option> --}}
                     </select>
           </div>
           <div class="form-group col-md-12">

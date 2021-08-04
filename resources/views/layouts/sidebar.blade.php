@@ -28,14 +28,14 @@
               </p>
             </a>
           </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-print"></i>
           <p>
             Laporan Surat
           </p>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-header">UTILITY</li>
       <li class="nav-item">
         <a href="{{ route('user.index') }}" class="nav-link">
@@ -53,9 +53,17 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ route('unitkerja.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-layer-group"></i>
+          <p>
+            Unit Kerja
+          </p>
+        </a>
+      </li>
       @elseif (Auth::user()->role == 'pegawai')
       <li class="nav-item">
-        <a href="/home" class="nav-link">
+        <a href="{{ route('home') }}" class="nav-link">
           <i class="nav-icon fas fa-home"></i>
           <p>
             Dashboard
@@ -71,51 +79,59 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('surat.create')}}" class="nav-link">
-          <i class="nav-icon fas fa-plus"></i>
-          <p>
-            Buat Surat
-          </p>
-        </a>
-      </li>
-      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
-            Data Surat
+            Buat Surat
             <i class="right fas fa-angle-left"></i>
           </p>
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('suratmasuk.index') }}" class="nav-link">
+                <a href="{{ route('surat.create') }}" class="nav-link">
                   <i class="nav-icon fas fa-genderless"></i>
                   <p>
-                    Surat Masuk
+                    Undangan
                   </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('suratkeluar.index') }}" class="nav-link">
+                <a href="{{ route('surat.create') }}" class="nav-link">
                   <i class="nav-icon fas fa-genderless"></i>
                   <p>
-                    Surat Keluar
+                    permohonan
                   </p>
                 </a>
               </li>
         </ul>
       </li>
       <li class="nav-item">
+        <a href="{{ route('suratmasuk.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Surat Masuk
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('suratkeluar.index') }}" class="nav-link">
+          <i class="nav-icon fas fa-envelope"></i>
+          <p>
+            Surat Keluar
+          </p>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
         <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>
           <p>
             Laporan Surat
           </p>
         </a>
-      </li>
+      </li> --}}
       @elseif (Auth::user()->role == 'kepala')
       <li class="nav-item">
-        <a href="/home" class="nav-link">
+        <a href="{{ route('home') }}" class="nav-link">
           <i class="nav-icon fas fa-home"></i>
           <p>
             Dashboard
@@ -162,7 +178,7 @@
         <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>
           <p>
-            Laporan Surat
+            Laporan Surat Masuk
           </p>
         </a>
       </li>

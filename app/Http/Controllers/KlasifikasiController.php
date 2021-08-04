@@ -40,12 +40,12 @@ class KlasifikasiController extends Controller
     {
         $request->validate([
             'nama' => 'unique:klasifikasi|min:5',
-            'kode' => 'unique:klasifikasi|max:2',
+            // 'kode' => 'unique:klasifikasi|max:2',
             'uraian' => 'min:5',
         ]);
        $klasifikasi = new Klasifikasi();
        $klasifikasi->nama   = $request->input('nama');
-       $klasifikasi->kode   = $request->input('kode');
+    //    $klasifikasi->kode   = $request->input('kode');
        $klasifikasi->uraian = $request->input('uraian');
        $klasifikasi->save();
        return redirect('klasifikasi')->with("sukses", "Data Klasifikasi Berhasil Ditambahkan");

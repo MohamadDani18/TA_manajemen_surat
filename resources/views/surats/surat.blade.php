@@ -54,10 +54,10 @@
               </div>
 
               <!-- Date dd/mm/yyyy -->
-              <div class="form-group col-md-6">
+              {{-- <div class="form-group col-md-6">
                 <label for="">Tanggal Surat</label>
-                        <input value="{{old('tgl_surat')}}" name="tgl_surat" type="date" class="form-control bg-light" required>
-              </div>
+                        <input value="{{old('tgl_surat')}}" name="tgl_surat" type="date" id="datepicker" class="form-control bg-light" required>
+              </div> --}}
 
               <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Perihal</label>
@@ -67,7 +67,7 @@
               <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Tujuan Surat</label>
                         <input value="{{old('tujuan_surat')}}" name="tujuan_surat" type="text" class="form-control bg-light"
-                             placeholder="Contoh: Politeknik Tegal" required>
+                             placeholder="Masukan Tujuan Surat" required>
               </div>
 
               <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -112,6 +112,14 @@
                         <input placeholder="Tulis nama" name="tertanda" type="text" class="form-control bg-light"
                               required>
               </div> --}}
+              <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
+                <label for="">Tembusan</label>
+                        <input name="tembusan1" type="text" class="form-control bg-light" placeholder="Tembusan 1" >
+                <label for=""></label>
+                        <input placeholder="Tembusan 2" name="tembusan2" type="text" class="form-control bg-light">
+                <label for=""></label>
+                        <input placeholder="Tembusan 3" name="tembusan3" type="text" class="form-control bg-light">
+              </div>
 
           </form>
 
@@ -125,6 +133,7 @@
     <!-- /.card-footer-->
   </div>
 </div>
+
 
   <!-- /.card -->
 @endsection

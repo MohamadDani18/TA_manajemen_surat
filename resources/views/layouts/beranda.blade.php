@@ -25,6 +25,38 @@
             <div class="card-body">
                 <!-- Small boxes (Stat box) -->
                 <div class="filter-container p-0 row">
+                    @if (auth()->user()->role == 'kepala')
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-teal">
+                            <div class="inner">
+                                <h3>{{DB::table('buatsurat')->where('keterangan','belum terverifikasi')->count()}}</h3>
+                                <p>Data Belum terverifikasi</p>
+                            </div>
+                            <div class="icon">
+                                <i class="nav-icon fas fa-paper-plane"></i>
+                            </div>
+                            <a href="{{ route('user.index') }}" class="small-box-footer">Lihat Detail <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    @endif
+                    @if (auth()->user()->role == 'pegawai')
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-teal">
+                            <div class="inner">
+                                <h3>{{DB::table('buatsurat')->where('keterangan','belum terverifikasi')->count()}}</h3>
+                                <p>Permintaan Surat</p>
+                            </div>
+                            <div class="icon">
+                                <i class="nav-icon fas fa-paper-plane"></i>
+                            </div>
+                            <a href="{{ route('user.index') }}" class="small-box-footer">Lihat Detail <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-cyan">
@@ -44,7 +76,7 @@
                         <!-- small box -->
                         <div class="small-box bg-maroon">
                             <div class="inner">
-                                <h3>{{DB::table('buatsurat')->count()}}</h3>
+                                <h3>{{DB::table('buatsurat')->where('keterangan','terverifikasi')->count()}}</h3>
                                 <p>Surat Keluar</p>
                             </div>
                             <div class="icon">
@@ -54,6 +86,7 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    @if (auth()->user()->role == 'admin')
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-blue">
@@ -68,6 +101,7 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    @endif
                     <!-- ./col -->
                     @if (auth()->user()->role == 'admin')
                     <div class="col-lg-3 col-6">
