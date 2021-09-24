@@ -89,3 +89,4 @@ Route::group(['middleware' => ['auth','checkRole:pegawai']], function () {
     Route::post('tambah-perintah', 'SuratController@tambahperintah')->name('surat.tambahperintah');
     Route::get('edit-perintah/{id}', 'SuratController@editperintah')->name('surat.editperintah');
 });
+

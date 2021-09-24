@@ -80,7 +80,7 @@ class SuratController extends Controller
 
         $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            'no_surat'   => 'required|unique:buatsurat|min:5',
+            //'no_surat'   => 'required|unique:buatsurat|min:5',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
         ],$messages);
@@ -105,7 +105,7 @@ class SuratController extends Controller
         $surat->keterangan        = 'belum terverifikasi';
         $surat->jenis_surat        = 'surat undangan';
         //
-        $surat['tembusan1'] = implode("br",$surat['tembusan1']);
+        $surat['tembusan1'] = implode("-",$surat['tembusan1']);
 
         $surat->users_id = Auth::id();
         $surat->save();
@@ -124,7 +124,7 @@ class SuratController extends Controller
 
         $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            'no_surat'   => 'required|unique:buatsurat|min:5',
+            //'no_surat'   => 'required|unique:buatsurat|min:5',
             'nip' => 'required|numeric',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
@@ -169,7 +169,7 @@ class SuratController extends Controller
 
         $request->validate([
             // 'filemasuk'  => 'mimes:jpg,jpeg,png,doc,docx,pdf',
-            'no_surat'   => 'required|unique:buatsurat',
+            //'no_surat'   => 'required|unique:buatsurat',
             // 'isi'        => 'min:5',
             // 'keterangan' => 'min:5',
         ],$messages);

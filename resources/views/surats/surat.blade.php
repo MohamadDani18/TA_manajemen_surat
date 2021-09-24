@@ -36,11 +36,11 @@
             @csrf
             <div class="box-body">
                 <div class="form-row">
-              <div class="form-group col-xs-12 col-sm-12 col-md-6">
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Nomor Surat</label>
                         <input value="{{old('no_surat')}}" name="no_surat" type="text" class="form-control bg-light"
-                             placeholder="Nomer Surat" required>
-              </div>
+                             placeholder="Nomer Surat" >
+              </div> --}}
               <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Lampiran</label>
                         <input value="{{old('lampiran')}}" name="lampiran" type="text" class="form-control bg-light"
