@@ -43,13 +43,13 @@
 			</tr>
 		<table width="625">
 			<tr>
-				<td class="text2">{{$s->tempat_surat}}, {{ \Carbon\Carbon::parse($s->tgl_surat)->format('d-m-Y')}}</td>
+				<td class="text2">{{$s->tempat_surat}}, {{ \Carbon\Carbon::parse($s->tgl_surat)->translatedFormat('d F Y')}}</td>
 			</tr>
 		</table>
 		</table>
 		<table>
 			<tr class="text2">
-				<td>Nomer</td>
+				<td>Nomor</td>
 				<td width="572"> : {{$s->no_surat}}</td>
 			</tr>
             <tr>
@@ -90,7 +90,7 @@
 		<table>
 			<tr class="text2">
 				<td>Hari Tanggal</td>
-				<td width="541">: {{$s->hari_tgl}}</td>
+				<td width="525">: {{$s->hari_tgl}}</td>
 			</tr>
 			<tr>
 				<td>Jam</td>
@@ -119,9 +119,9 @@
          <table>
 			<tr class="625">
 				<td>Tembusan :</td>
-                <tr><td width="600">{{$s->tembusan1}}</td></tr>
-                <tr><td width="562">{{$s->tembusan2}}</td></tr>
-                <tr><td width="562">{{$s->tembusan3}}</td></tr>
+                <tr>
+                    <td width="600">{{$s->tembusan1}}<br></td>
+                </tr><br>
 			</tr>
 
 		</table>

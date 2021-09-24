@@ -22,8 +22,9 @@ class SuratkeluarController extends Controller
      */
     public function index(Request $request)
     {
-        $suratkeluar = \App\Surat::where('keterangan','terverifikasi')->get();
-        return view('SuratKeluar.index', ['suratkeluar' => $suratkeluar]);
+        $data_klasifikasi = \App\Klasifikasi::all();
+        $suratkeluar = \App\Surat::where('keterangan','terverifikasi')->orderBy('id','DESC')->get();
+        return view('SuratKeluar.index', ['suratkeluar' => $suratkeluar], ['data_klasifikasi' => $data_klasifikasi]);
     }
 
     /**
@@ -138,5 +139,17 @@ class SuratkeluarController extends Controller
     {
         Surat::destroy($id);
         return redirect('suratkeluar')->with('success', 'Data berhasil di delete !');
+    }
+
+    public function filtercetakkeluar( Request $request)
+    {
+        if ($request->jenis_surat) {
+            $suratkeluar = Surat::where('jenis_surat', $request->jenis_surat)->get();
+        } else if ($request->tglawal && $request->tglakhir) {
+            $suratkeluar = Surat::get()->whereBetween('tgl_surat', [$request->tglawal, $request->tglakhir]);
+        } else {
+            $suratkeluar = Surat::whereBetween('tgl_surat', [$request->tglawal, $request->tglakhir])->where('jenis_surat', $request->jenis_surat)->get();
+        }
+        return view('SuratKeluar.cetak-laporan', compact('suratkeluar'));
     }
 }

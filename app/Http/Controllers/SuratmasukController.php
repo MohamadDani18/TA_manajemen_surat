@@ -23,10 +23,10 @@ class SuratmasukController extends Controller
     public function index()
     {
         $disp = \App\Disposisi::all();
+        $data_klasifikasi = \App\Klasifikasi::all();
+        $data_suratmasuk = \App\Suratmasuk::orderBy('id','DESC')->get();
 
-        $data_suratmasuk = \App\SuratMasuk::all();
-
-        return view('SuratMasuk.index',['data_suratmasuk'=> $data_suratmasuk],['disposisi'=> $disp]);
+        return view('SuratMasuk.index',['data_suratmasuk'=> $data_suratmasuk],['data_klasifikasi'=> $data_klasifikasi],['disposisi'=> $disp]);
     }
 
     //function untuk masuk ke view Tambah
@@ -166,6 +166,23 @@ class SuratmasukController extends Controller
         // ],$messages);
         // dd(["Tanggal Awal : ".$tglawal, "Tanggal Akhir : ".$tglakhir]);
         $suratmasuk = Suratmasuk::get()->whereBetween('tgl_surat', [$tglawal, $tglakhir]);
+        return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
+    }
+
+    public function filtercetak( Request $request)
+    {
+        // $penunggupasien = PenungguPasien::where('kecamatan', $kecamatan)->first();
+        // $penunggupasien = PenungguPasien::get()->whereBetween('tanggal', [$request->tglawal, $request->tglakhir]);
+        // $penunggupasien = PenungguPasien::where('kecamatan', $request->kecamatan)->get();
+        // $penunggupasien = PenungguPasien::whereBetween('tanggal', [$request->tglawal, $request->tglakhir])->where('kecamatan', $request->kecamatan)->get();
+        // echo json_encode($penunggupasien);
+        if ($request->kode) {
+            $suratmasuk = Suratmasuk::where('kode', $request->kode)->get();
+        } else if ($request->tglawal && $request->tglakhir) {
+            $suratmasuk = Suratmasuk::get()->whereBetween('tgl_surat', [$request->tglawal, $request->tglakhir]);
+        } else {
+            $suratmasuk = Suratmasuk::whereBetween('tgl_surat', [$request->tglawal, $request->tglakhir])->where('kode', $request->kode)->get();
+        }
         return view('SuratMasuk.cetak-laporan', compact('suratmasuk'));
     }
 

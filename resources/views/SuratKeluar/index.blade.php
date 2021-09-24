@@ -22,6 +22,15 @@
                 <hr />
             </div>
         </div>
+        <div>
+            @if (auth()->user()->role == 'kepala')
+            <div class="col">
+                <a data-toggle="modal" data-target="#tambahklasifikasi" class="btn btn-warning btn-sm my-1 mr-sm-1" role="button"><i class="fas fa-print"></i>
+                    Cetak Data</a>
+            </div>
+            @endif
+            <br>
+        </div>
         <div class="row table-responsive">
             <div class="col">
                 <table class="table table-bordered table-hover table-head-fixed" id='tabelSuratmasuk'>
@@ -33,7 +42,7 @@
                             <th>Tujuan Surat</th>
                             {{-- <th>Tempat Surat</th> --}}
                             <th>Tgl. Surat</th>
-                             <th>Keterangan</th>
+                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -50,18 +59,21 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_surat)->format('d-m-Y')}}</td>
                             <td><span class="badge badge-success">{{$surat->keterangan}}</span></td>
                             <td>
-                                <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">
+                                @if ($surat->jenis_surat == 'surat edaran')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampiledaran', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Cetak</a>
+                                        @elseif($surat->jenis_surat == 'surat undangan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Cetak</a>
+                                        @elseif($surat->jenis_surat == 'surat permohonan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampilpermohonan', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Cetak</a>
+                                        @elseif($surat->jenis_surat == 'surat perintah')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampilperintah', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Cetak</a>
+                                        @else
 
-                                    {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
-                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
-                                        <i class="fas fa-print"></i> Cetak</a>
-                                    @if (auth()->user()->role == 'admin')
-                                    @csrf
-                                    @method('DELETE')
-
-                                    {{-- <button type="submit" onclick="'deleteData'" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button> --}}
-                                     @endif
-                                </form>
+                                        @endif
                             </td>
                         </tr>
                         @endforeach
@@ -70,6 +82,66 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="tambahklasifikasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i
+                            class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Cetak Data Surat </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form action=" /filter-cetak-keluar " method="get" autocomplete="off" >
+                        {{csrf_field()}}
+                        <!-- filter kecamatan -->
+                        <div class="row clearfix">
+                            <div class="col-md-6">
+                                <label for="jenis_surat">Jenis Surat</label>
+                                <select name="jenis_surat" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
+                                    required>
+                                    <option selected disabled >-- Pilih Jenis Surat --</option>
+                                    @foreach($data_klasifikasi as $klasifikasi)
+                                    <option value="{{$klasifikasi->nama}}">{{$klasifikasi->nama}} ( {{$klasifikasi->id}} )
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- filter tanggal -->
+                        <br><br><div class="row clearfix">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="label">Tanggal Awal :</label>
+                                        <input type="date" name="tglawal" id="tglawal" class="form-control bg-light " required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="label">Tanggal Akhir :</label>
+                                        <input type="date" name="tglakhir" id="tglakhir" class="form-control bg-light" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end filter tanggal -->
+
+                        <hr>
+                        <button type="submit" class="button btn btn-success btn-sm" target="_blank"><i class="fas fa-save"></i>CETAK</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close"><i class="fas fa"></i>
+                            BATAL</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+</div>
 </section>
 <script>
     function deleteData(id) {

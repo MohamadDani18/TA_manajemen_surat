@@ -39,9 +39,9 @@
                     {{--  <label for="sifat">Sifat</label>
                     <input name="sifat" type="text" class="form-control bg-light" placeholder="Sifat"
                         value="{{ $disp->sifat }}" required>  --}}
-                    <label for="batas_waktu">Tanggal</label>
+                    {{--  <label for="batas_waktu">Tanggal</label>
                     <input name="tgl_disp" type="date" class="form-control bg-light" value="{{ $disp->tgl_disp }}"
-                        required>
+                        required>  --}}
                     <label for="catatan">Catatan</label>
                     <input name="catatan" type="text" class="form-control bg-light" placeholder="Catatan"
                         value="{{ $disp->catatan }}" required>

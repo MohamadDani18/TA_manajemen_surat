@@ -38,7 +38,7 @@
             <div class="box-body">
                 <div class="form-row">
               <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                <label for="">Nomer Surat</label>
+                <label for="">Nomor Surat</label>
                         <input value="{{$surat->no_surat}}" name="no_surat" type="text" class="form-control bg-light"
                              placeholder="Nomer Surat" required>
               </div>
@@ -48,17 +48,11 @@
                              placeholder="Lampiran" required>
               </div>
 
-              <div class="form-group col-xs-12 col-sm-12 col-md-6">
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Tempat Surat</label>
                         <input value="{{$surat->tempat_surat}}" name="tempat_surat" type="text" class="form-control bg-light"
                              placeholder="Contoh: Tegal" required>
-              </div>
-
-              <!-- Date dd/mm/yyyy -->
-              <div class="form-group col-md-6">
-                <label for="">Tanggal Surat</label>
-                        <input value="{{$surat->tgl_surat}}" name="tgl_surat" type="date" class="form-control bg-light" required>
-              </div>
+              </div> --}}
 
               <div class="form-group col-xs-12 col-sm-12 col-md-6">
                 <label for="">Perihal</label>

@@ -26,8 +26,9 @@ Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], functi
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('surat', 'SuratController');
 
-    // Route::resource('klasifikasi', 'KlasifikasiController');
-    // Route::resource('disposisi', 'DisposisiController');
+    Route::get('tampiledaran/{id}', 'SuratController@tampiledaran')->name('surat.tampiledaran');
+    Route::get('tampilpermohonan/{id}', 'SuratController@tampilpermohonan')->name('surat.tampilpermohonan');
+    Route::get('tampilperintah/{id}', 'SuratController@tampilperintah')->name('surat.tampilperintah');
 
     //disposisi
     Route::get('/disposisi/{suratmasuk}', 'DisposisiController@index')->name('disposisi.index');
@@ -43,6 +44,9 @@ Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], functi
     Route::get('/cetak-laporan', 'SuratmasukController@cetakLaporan')->name('cetak-laporan');
     Route::get('/cetak-laporan-form', 'SuratmasukController@cetakForm')->name('cetak-laporan-form');
     Route::get('/cetak-laporan-filter/{tglawal}/{tglakhir}', 'SuratmasukController@cetakLaporanFilter')->name('cetak-laporan-filter');
+
+    Route::get('/filter-cetak', 'SuratmasukController@filtercetak')->name('filter-cetak');
+    Route::get('/filter-cetak-keluar', 'SuratkeluarController@filtercetakkeluar')->name('filter-cetak-keluar');
 
 });
 
@@ -69,4 +73,19 @@ Route::group(['middleware' => ['auth','checkRole:kepala']], function () {
 Route::group(['middleware' => ['auth','checkRole:pegawai']], function () {
     Route::get('permintaan-surat', 'SuratController@surats')->name('surat.permintaan');
     Route::get('/surat/create', 'SuratController@create')->name('surat.create');
+
+    //route surat edaran
+    Route::get('surat-edaran', 'SuratController@edaran')->name('surat.edaran');
+    Route::post('tambah-edaran', 'SuratController@tambahedaran')->name('surat.tambahedaran');
+    Route::get('edit-edaran/{id}', 'SuratController@editedaran')->name('surat.editedaran');
+
+    //route surat permohonan
+    Route::get('surat-permohonan', 'SuratController@permohonan')->name('surat.permohonan');
+    Route::post('tambah-permohonan', 'SuratController@tambahpermohonan')->name('surat.tambahpermohonan');
+    Route::get('edit-permohonan/{id}', 'SuratController@editpermohonan')->name('surat.editpermohonan');
+
+    //route surat perintah
+    Route::get('surat-perintah', 'SuratController@perintah')->name('surat.perintah');
+    Route::post('tambah-perintah', 'SuratController@tambahperintah')->name('surat.tambahperintah');
+    Route::get('edit-perintah/{id}', 'SuratController@editperintah')->name('surat.editperintah');
 });

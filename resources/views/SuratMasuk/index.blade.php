@@ -29,6 +29,14 @@
                     Tambah Data</a>
             </div>
             @endif
+        </div>
+        <div>
+            @if (auth()->user()->role == 'kepala')
+            <div class="col">
+                <a data-toggle="modal" data-target="#tambahklasifikasi" class="btn btn-warning btn-sm my-1 mr-sm-1" role="button"><i class="fas fa-print"></i>
+                    Cetak Data</a>
+            </div>
+            @endif
             <br>
         </div>
         <div class="row table-responsive">
@@ -56,20 +64,13 @@
                             <td>{{$suratmasuk->no_surat}}</td>
                             <td>{{$suratmasuk->isi}}</td>
                             <td>{{$suratmasuk->asal_surat}}</td>
-                            <td>{{$suratmasuk->kode}}</td>
+                            <td>{{$suratmasuk->kode}}({{$suratmasuk->id}})</td>
                             <td>{{ \Carbon\Carbon::parse($suratmasuk->tgl_surat)->format('d-m-Y')}}</td>
                             <td>
                                 <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
                                     class="btn btn-warning btn-sm my-1 mr-sm-1"><i
                                         class="fas fa-paperclip"></i> Disposisi</a>
                             </td>
-                            {{--  <td>
-                                @if($suratmasuk->filemasuk!= NULL)
-                                   <img src="{{URL::to('/')}}/datasuratmasuk/{{$suratmasuk->filemasuk}}" class="mask waves-effect waves-light rgba-white-slight" height="85px" width="85px" width="auto">
-                                @else
-                                    <h5 style="color:red">Tidak ada Gambar</h5>
-                                @endif
-                            </td>  --}}
                             {{-- <td>
                                 @php
                                         $status = 0;
@@ -79,16 +80,17 @@
                                     @php
                                         $status = 1;
                                     @endphp
-                                    <a href="">{{$tujuan = $item->tujuan}} <br></a>
+                                    <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
+                                        class="btn btn-warning btn-sm my-1 mr-sm-1"><i
+                                            class="fas fa-paperclip"></i> </a>{{$tujuan = $item->tujuan}} <br>
                                 @endif
                                 @endforeach
-                                @if (auth()->user()->role == 'admin')
                                 @if ($status === 0)
                                 <a href="{{ route('disposisi.index', $suratmasuk->id) }}"
                                     class="btn btn-warning btn-sm my-1 mr-sm-1"><i
                                         class="fas fa-paperclip"></i> </a>Wait Disposisi
                                 @endif
-                                @endif
+
                             </td> --}}
                             <td>
                                 <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('suratmasuk.destroy',$suratmasuk->id) }}" method="POST">
@@ -122,6 +124,64 @@
 
             </div>
         </div>
+
+        <div class="modal fade" id="tambahklasifikasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i
+                                class="nav-icon fas fa-layer-group my-1 btn-sm-1"></i> Cetak Data Surat </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form action=" /filter-cetak " method="get" autocomplete="off" >
+                            {{csrf_field()}}
+                            <!-- filter kecamatan -->
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <label for="kode">Jenis Surat</label>
+                                    <select name="kode" class="custom-select my-1 mr-sm-2 bg-light" id="inlineFormCustomSelectPref"
+                                        required>
+                                        <option selected disabled >-- Pilih Jenis Surat --</option>
+                                        @foreach($data_klasifikasi as $klasifikasi)
+                                        <option value="{{$klasifikasi->nama}}">{{$klasifikasi->nama}} ( {{$klasifikasi->id}} )
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- filter tanggal -->
+                            <br><br><div class="row clearfix">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="label">Tanggal Awal :</label>
+                                            <input type="date" name="tglawal" id="tglawal" class="form-control bg-light " required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="label">Tanggal Akhir :</label>
+                                            <input type="date" name="tglakhir" id="tglakhir" class="form-control bg-light" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end filter tanggal -->
+
+                            <hr>
+                            <button type="submit" class="button btn btn-success btn-sm" target="_blank"><i class="fas fa-save"></i>CETAK</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close"><i class="fas fa"></i>
+                                BATAL</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
 
     </div>
 </section>

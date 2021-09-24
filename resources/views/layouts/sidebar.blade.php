@@ -96,10 +96,26 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('surat.create') }}" class="nav-link">
+                <a href="{{ route('surat.edaran') }}" class="nav-link">
                   <i class="nav-icon fas fa-genderless"></i>
                   <p>
-                    permohonan
+                    Edaran
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('surat.permohonan') }}" class="nav-link">
+                  <i class="nav-icon fas fa-genderless"></i>
+                  <p>
+                    Permohonan
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('surat.perintah') }}" class="nav-link">
+                  <i class="nav-icon fas fa-genderless"></i>
+                  <p>
+                    perintah
                   </p>
                 </a>
               </li>
@@ -163,25 +179,13 @@
         </a>
       </li>
       {{-- <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
-          <p>
-            Data Surat
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-
-        </ul>
-      </li> --}}
-      <li class="nav-item">
         <a href="/cetak-laporan-form" class="nav-link">
           <i class="nav-icon fas fa-list-alt"></i>
           <p>
             Laporan Surat Masuk
           </p>
         </a>
-      </li>
+      </li> --}}
       @endif
     </ul>
   </nav>

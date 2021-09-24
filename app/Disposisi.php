@@ -12,4 +12,14 @@ class Disposisi extends Model
     {
         return $this->belongsTo('App\SuratMasuk');
     }
+
+    public function setCategoryAttribute($value)
+    {
+        $this->attributes['tujuan'] = json_encode($value);
+    }
+
+    public function getCategoryAttribute($value)
+    {
+        return $this->attributes['tujuan'] = json_decode($value);
+    }
 }

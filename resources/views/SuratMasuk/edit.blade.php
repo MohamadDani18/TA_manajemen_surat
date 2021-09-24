@@ -37,9 +37,9 @@
                     <label for="kode">Kode Klasifikasi</label>
                     <select name="kode" class="custom-select my-1 mr-sm-2 bg-light" id="kode"
                         value="{{$suratmasuk->kode}}" required>
-                        <option selected>{{$suratmasuk->kode}}</option>
+                        <option selected disabled>{{$suratmasuk->kode}}</option>
                         @foreach($data_klasifikasi as $klasifikasi)
-                        <option value="{{$klasifikasi->kode}}">{{$klasifikasi->nama}} ( {{$klasifikasi->kode}} )
+                        <option value="{{$klasifikasi->nama}}">{{$klasifikasi->nama}} ( {{$klasifikasi->id}} )
                         </option>
                         @endforeach
                     </select>
@@ -60,9 +60,9 @@
                         <label for="exampleFormControlFile1">File</label>
                         <input name="filemasuk" type="file" class="form-control-file" id="exampleFormControlFile1"
                             value="{{$suratmasuk->filemasuk}}">
-                        <small id="exampleFormControlFile1" class="text-warning">
+                        {{-- <small id="exampleFormControlFile1" class="text-warning">
                             Pastikan file anda ( jpg,jpeg,png,doc,docx,pdf ) !!!
-                        </small>
+                        </small> --}}
                     </div>
                 </div>
             </div>

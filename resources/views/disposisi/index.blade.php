@@ -56,7 +56,7 @@
                             <td>{{$disposisi->tujuan}}</td>
                             <td>{{$disposisi->isi}}</td>
                             {{--  <td>{{$disposisi->sifat}}</td>  --}}
-                            <td>{{$disposisi->tgl_disp}}</td>
+                            <td>{{ \Carbon\Carbon::parse($disposisi->tgl_disp)->format('d-m-Y')}}</td>
                             <td>{{$disposisi->catatan}}</td>
                             <td>
                                 <form action="{{ route('disposisi.destroy', [$smasuk, $disposisi->id]) }}"
@@ -64,9 +64,9 @@
                                     @csrf
                                     @method('delete')
                                     @if (auth()->user()->role == 'kepala')
-                                    <a href="{{ route('disposisi.edit', [$smasuk, $disposisi->id]) }}"
+                                    {{--  <a href="{{ route('disposisi.edit', [$smasuk, $disposisi->id]) }}"
                                         class="btn btn-primary btn-sm my-1 mr-sm-1" role="button"><i
-                                            class="nav-icon fas fa-pencil-alt"></i> Edit</a>
+                                            class="nav-icon fas fa-pencil-alt"></i> Edit</a>  --}}
                                         @endif
                                     <a class="btn btn-primary btn-sm my-1 mr-sm-1"
                                          href="{{ route('disposisi.cetak', [$smasuk, $disposisi->id]) }}"

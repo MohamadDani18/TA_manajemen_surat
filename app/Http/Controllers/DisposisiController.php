@@ -10,6 +10,7 @@ use App\Suratkeluar;
 use App\Suratmasuk;
 use App\User;
 use PDF;
+use DateTime;
 
 class DisposisiController extends Controller
 {
@@ -46,23 +47,12 @@ class DisposisiController extends Controller
     public function store(Request $request, SuratMasuk $suratmasuk)
     {
         $smasuk = $suratmasuk->findorfail($suratmasuk->id);
-        $this->validate($request, [
-            'tujuan'        => 'required',
-            'isi'           => 'required',
-            // 'sifat'         => 'required',
-            'tgl_disp'   => 'required',
-            'catatan'       => 'required',
-        ]);
-
-        $disp = Disposisi::create([
-            'tujuan'          => $request->tujuan,
-            'isi'             => $request->isi,
-            // 'sifat'           => $request->sifat,
-            'tgl_disp'     => $request->tgl_disp,
-            'catatan'         => $request->catatan,
-            'users_id'        => Auth::id(),
-            'suratmasuk_id'   => $suratmasuk->id,
-        ]);
+        $data = $request->input();
+        $data['users_id'] = Auth::id();
+        $data['tgl_disp'] = new DateTime();
+        $data['suratmasuk_id'] = $suratmasuk->id;
+        $data['tujuan'] = implode(",",$data['tujuan']);
+        Disposisi::create($data);
 
         return redirect('suratmasuk')->with('sukses', 'Data Disposisi Berhasil ditambahkan');
     }
@@ -107,7 +97,7 @@ class DisposisiController extends Controller
             'tujuan'        => 'required',
             'isi'           => 'required',
             // 'sifat'         => 'required',
-            'tgl_disp'   => 'required',
+            // 'tgl_disp'   => 'required',
             'catatan'       => 'required',
         ]);
 
@@ -115,7 +105,7 @@ class DisposisiController extends Controller
             'tujuan'        => $request->tujuan,
             'isi'           => $request->isi,
             // 'sifat'         => $request->sifat,
-            'tgl_disp'   => $request->tgl_disp,
+            // 'tgl_disp'   => $request->tgl_disp,
             'catatan'       => $request->catatan,
             'users_id'      => Auth::id(),
             'smasuk_id'     => $suratmasuk->id,

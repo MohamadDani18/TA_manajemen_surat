@@ -76,11 +76,14 @@ class UnitkerjaController extends Controller
      * @param  \App\Unitkerja  $unitkerja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unitkerja $unitkerja)
+    public function update(Request $request, $id)
     {
-        //
-    }
 
+        $unit_kerja = Unitkerja::findOrFail($id);
+        $unit_kerja->update($request->all());
+        $unit_kerja->save();
+        return redirect('unitkerja')->with("sukses", "Data telah di ubah");
+}
     /**
      * Remove the specified resource from storage.
      *

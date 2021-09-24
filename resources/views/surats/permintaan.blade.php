@@ -33,7 +33,7 @@
                             <th>Tujuan Surat</th>
                             {{-- <th>Tempat Surat</th> --}}
                             <th>Tgl. Surat</th>
-                             <th>Keterangan</th>
+                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -50,18 +50,21 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_surat)->format('d-m-Y')}}</td>
                             <td><span class="">{{$surat->keterangan}}</span></td>
                             <td>
-                                <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">
+                                        @if ($surat->jenis_surat == 'surat edaran')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('surat.editedaran', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Edit</a>
+                                        @elseif($surat->jenis_surat == 'surat undangan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('surat.edit', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Edit</a>
+                                        @elseif($surat->jenis_surat == 'surat permohonan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('surat.editpermohonan', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Edit</a>
+                                        @elseif($surat->jenis_surat == 'surat perintah')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('surat.editperintah', $surat->id) }}">
+                                            <i class="fas fa-print"></i> Edit</a>
+                                        @else
 
-                                    {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
-                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1" href="{{ route('surat.edit', $surat->id) }}">
-                                        <i class="fas fa-print"></i> Edit</a>
-                                    @if (auth()->user()->role == 'admin')
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button>
-                                     @endif
-                                </form>
+                                        @endif
                             </td>
                         </tr>
                         @endforeach

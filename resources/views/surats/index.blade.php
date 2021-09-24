@@ -33,7 +33,7 @@
                             <th>Tujuan Surat</th>
                             <th>Tempat Surat</th>
                             <th>Tgl. Surat</th>
-                             <th>Keterangan</th>
+                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -50,21 +50,28 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_surat)->format('d-m-Y')}}</td>
                             <td>{{$surat->keterangan}}</td>
                             <td>
-                                <form onsubmit="return confirm('apakah anda yakin?');" action="{{ route('surat.destroy',$surat->id) }}" method="POST">
 
-                                    {{--  <a class="btn btn-warning btn-sm my-1 mr-sm-1 btn-block" href="{{ route('disposisi.index',$suratmasuk->id) }}">Disposisi</a>  --}}
-                                    <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
-                                        <i class="fas fa-file-archive"></i> Show</a>
+                                    {{-- <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
+                                        <i class="fas fa-file-archive"></i> Show</a> --}}
+                                        @if ($surat->jenis_surat == 'surat edaran')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampiledaran', $surat->id) }}">
+                                            <i class="fas fa-file-archive"></i> Show</a>
+                                        @elseif($surat->jenis_surat == 'surat undangan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.show', $surat->id) }}">
+                                            <i class="fas fa-file-archive"></i> Show</a>
+                                        @elseif($surat->jenis_surat == 'surat permohonan')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampilpermohonan', $surat->id) }}">
+                                            <i class="fas fa-file-archive"></i> Show</a>
+                                        @elseif($surat->jenis_surat == 'surat perintah')
+                                        <a class="btn btn-primary btn-sm my-1 mr-sm-1" target="_blank" href="{{ route('surat.tampilperintah', $surat->id) }}">
+                                            <i class="fas fa-file-archive"></i> Show</a>
+                                        @else
+
+                                        @endif
 
                                     <a class="btn btn-success btn-sm my-1 mr-sm-1 " data-toggle="modal"
                                     data-target="#tambahklasifikasi"><i class="nav-icon fas fa-edit"></i>Confirm</a>
 
-                                    @csrf
-                                    @method('DELETE')
-
-                                    {{-- <button type="submit" class="btn btn-danger btn-sm my-1 mr-sm-1 "><i class="nav-icon fas fa-trash"></i> Hapus</button> --}}
-
-                                </form>
                             </td>
                             <!--modal konfirmasi-->
         <div class="modal fade" id="tambahklasifikasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
