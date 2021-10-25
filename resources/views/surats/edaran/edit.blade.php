@@ -108,14 +108,14 @@
                         <input placeholder="Tulis nama" name="tertanda" type="text" class="form-control bg-light"
                               required>
               </div> --}}
-              <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
                 <label for="">Tembusan</label>
                         <input value="{{$surat->tembusan1}}" name="tembusan1" type="text" class="form-control bg-light" placeholder="Tembusan 1" >
                 <label for=""></label>
                         <input value="{{$surat->tembusan2}}" placeholder="Tembusan 2" name="tembusan2" type="text" class="form-control bg-light">
                 <label for=""></label>
                         <input value="{{$surat->tembusan3}}" placeholder="Tembusan 3" name="tembusan3" type="text" class="form-control bg-light">
-              </div>
+              </div> --}}
 
           </form>
 

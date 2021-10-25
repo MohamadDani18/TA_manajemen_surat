@@ -24,10 +24,24 @@ class Surat extends Model
         return [
             'no_surat' => [
                 'format' => function () {
-                    return '?/DC-KT/IX/' . date('Y');
+                    return '?/DC-KT/X/' . date('Y');
                 },
                 'length' => 3
             ]
         ];
+    }
+
+    public function setCategoryAttribute($value)
+    {
+        $this->attributes['tembusan1'] = json_encode($value);
+    }
+
+    public function getCategoryAttribute($value)
+    {
+        return $this->attributes['tembusan1'] = json_decode($value);
+    }
+
+    public function tembusan(){
+    	return $this->hasMany('App\Tembusan');
     }
 }

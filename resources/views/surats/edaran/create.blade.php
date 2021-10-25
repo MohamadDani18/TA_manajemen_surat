@@ -109,14 +109,14 @@
                             required>Demikian surat ini kami sampaikan, atas perhatian dan kehadiran Bapak/Ibu kami ucapkan terima kasih.</textarea>
               </div>
 
-              <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
                 <label for="">Tembusan</label>
                         <input name="tembusan1" type="text" class="form-control bg-light" placeholder="Tembusan 1" >
                 <label for=""></label>
                         <input placeholder="Tembusan 2" name="tembusan2" type="text" class="form-control bg-light">
                 <label for=""></label>
                         <input placeholder="Tembusan 3" name="tembusan3" type="text" class="form-control bg-light">
-              </div>
+              </div> --}}
 
           </form>
 

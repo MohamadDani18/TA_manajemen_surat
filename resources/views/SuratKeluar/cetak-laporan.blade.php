@@ -79,7 +79,13 @@
                 </tr>
             @endforeach
 
-        </table>
+        </table><br><br>
+        <table width="1325">
+			<tr>
+				<td width="830"><br><br><br><br></td>
+				<td class="text" align="center">Kepala Dinas<br><img src="{{asset('adminLTE/')}}/dist/img/ttd.png" width="60" height="60"><br>Basuki, S.E.,M.M</td>
+			</tr>
+	     </table>
     </div>
 
     <script type="text/javascript">

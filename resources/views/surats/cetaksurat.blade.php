@@ -119,8 +119,15 @@
          <table>
 			<tr class="625">
 				<td>Tembusan :</td>
+                <?php $no = 0;?>
+                @foreach($s->tembusan as $t)
+                <?php $no++ ;?>
                 <tr>
-                    <td width="600">{{$s->tembusan1}}<br></td>
+
+                    <td width="600" >
+                        {{$no}}. {{$t->tembusan}} <br>
+                        @endforeach
+                    </td>
                 </tr><br>
 			</tr>
 

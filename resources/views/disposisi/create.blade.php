@@ -24,11 +24,17 @@
             <div class="row">
                 <div class="col-6">
                     <label><strong>Tujuan :</strong></label><br>
-                                <label><input type="checkbox" name="tujuan[]" value="Sekretaris">Sekretaris</label>
-                                <label><input type="checkbox" name="tujuan[]" value="Sub Bagian Perencanaan"> Sub Bagian Perencanaan</label>
-                                <label><input type="checkbox" name="tujuan[]" value="Sub Bagian Keuangan">Sub Bagian Keuangan</label>
-                                <label><input type="checkbox" name="tujuan[]" value="Sub Bagian Umum dan Kepegawaian">Sub Bagian Umum dan Kepegawaian</label>
-                                <label><input type="checkbox" name="tujuan[]" value="Seksi Identitas Penduduk">Seksi Identitas Penduduk</label><br><hr>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Sekretaris">Sekretaris</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Sub Bagian Perencanaan">Sub Bagian Perencanaan</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Sub Bagian Keuangan">Sub Bagian Keuangan</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Sub Bagian Umum dan Kepegawaian">Sub Bagian Umum dan Kepegawaian</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Seksi Identitas Penduduk">Seksi Identitas Penduduk</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Seksi Pindah Datang dan Pendataan Penduduk">Seksi Pindah Datang dan Pendataan Penduduk</label><br>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Seksi Kelahiran dan Kematian">Seksi Kelahiran dan Kematian</label>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Seksi Sistem Informasi Administrasi Kependudukan">Seksi Sistem Informasi Administrasi Kependudukan</label>
+                                <label class="form-check-label"><input type="checkbox" name="tujuan[]" value="Seksi Pengolahan dan Penyajian Data Kependudukan">Seksi Pengolahan dan Penyajian Data Kependudukan</label>
+
+                                <br><hr>
                     <label for="isi">Isi</label>
                     <input name="isi" type="text" class="form-control bg-light" placeholder="Isi" required>
                     {{--  <label for="batas_waktu">Tanggal</label>

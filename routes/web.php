@@ -22,6 +22,10 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','checkRole:admin,pegawai,kepala']], function () {
 
+    //route tembusan
+    Route::get('tembusan/{id}', 'SuratController@tembusan')->name('surat.tembusan');
+    Route::post('tembusan/{id}', 'SuratController@insertCheckbox');
+
     Route::resource('suratmasuk', 'SuratMasukController');
     Route::resource('suratkeluar', 'SuratkeluarController');
     Route::resource('surat', 'SuratController');
@@ -88,5 +92,9 @@ Route::group(['middleware' => ['auth','checkRole:pegawai']], function () {
     Route::get('surat-perintah', 'SuratController@perintah')->name('surat.perintah');
     Route::post('tambah-perintah', 'SuratController@tambahperintah')->name('surat.tambahperintah');
     Route::get('edit-perintah/{id}', 'SuratController@editperintah')->name('surat.editperintah');
+
+     //route tembusan
+    //  Route::get('surat-perintah', 'SuratController@tembusan');
+
 });
 

@@ -110,7 +110,7 @@
                         <input placeholder="Tulis nama" name="tertanda" type="text" class="form-control bg-light"
                               required>
               </div> --}}
-              <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
                 <label for="">Tembusan</label><br>
                 <label><input type="checkbox" name="tembusan1[]" value="Sekretaris">Sekretaris</label>
                 <label><input type="checkbox" name="tembusan1[]" value="Sub Bagian Perencanaan"> Sub Bagian Perencanaan</label>
@@ -118,7 +118,7 @@
                 <label><input type="checkbox" name="tembusan1[]" value="Sub Bagian Umum dan Kepegawaian">Sub Bagian Umum dan Kepegawaian</label>
                 <label><input type="checkbox" name="tembusan1[]" value="Seksi Identitas Penduduk">Seksi Identitas Penduduk</label><br><hr>
                         <small  class="form-text text-muted">kosongkan jika tidak ada</small>
-              </div>
+              </div> --}}
 
           </form>
 

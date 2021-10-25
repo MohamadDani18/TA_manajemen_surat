@@ -65,7 +65,11 @@
                                         @else
 
                                         @endif
+                                        <a href="{{ route('surat.tembusan', $surat->id) }}"
+                                            class="btn btn-warning btn-sm my-1 mr-sm-1"><i
+                                                class="fas fa-paperclip"></i> Tembusan</a>
                             </td>
+
                         </tr>
                         @endforeach
                     </tbody>

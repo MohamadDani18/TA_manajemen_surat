@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Surat;
+use App\Tembusan;
 use App\Suratkeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,37 @@ class SuratController extends Controller
         return view('surats.perintah.create');
     }
 
+    public function tembusan(Surat $surat, $id)
+    {
+        $surat = Surat::findOrFail($id);
+        return view('surats.tembusan',  compact('surat'));
+    }
+
+    public function insertCheckbox(Request $request, Surat $surat, $id )
+    {
+
+        // if(!empty($request->input('tembusan'))) {
+        //     $will_insert = [];
+        //     foreach($request->input('tembusan') as $key => $value){
+        //         array_push($will_insert, ['tembusan' => $value]);
+        //     }
+        //     \DB::table('tembusan')->insert($will_insert);
+        // }else{
+        //     $checkbox ='';
+        // }
+        $surat = Surat::findOrFail($id);
+        foreach ($request->tembusan as $key=>$name){
+               $insert = [
+                     'tembusan' => $request->tembusan[$key],
+                     'surat_id'     => $surat->id,
+                 ];
+
+                 DB::table('tembusan')->insert($insert);
+             }
+
+        return back()->with("sukses", " Berhasil di tambahkan");
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -104,13 +136,33 @@ class SuratController extends Controller
         $surat->tembusan3         = $request->input('tembusan3');
         $surat->keterangan        = 'belum terverifikasi';
         $surat->jenis_surat        = 'surat undangan';
-        //
-        $surat['tembusan1'] = implode("-",$surat['tembusan1']);
-
         $surat->users_id = Auth::id();
         $surat->save();
+        //
+        // $surat['tembusan1'] = implode("-",$surat['tembusan1']);
+        // if(!empty($request->input('tembusan'))) {
+        //     $will_insert = [];
+        //     foreach($request->input('tembusan') as $key => $value){
+        //         array_push($will_insert, ['tembusan' => $value]);
+        //     }
+        //     \DB::table('tembusan')->insert($will_insert);
+        // }else{
+        //     $checkbox ='';
+        // }
+
+        // foreach ($request->tembusan as $key=>$name){
+        //     $insert = [
+        //           'tembusan' => $request->tembusan[$key],
+        //       ];
+
+        //       DB::table('tembusan')->insert($insert);
+        //   }
+
+
+
         return back()->with("sukses", "Surat Berhasil di buat");
     }
+
 
     public function tambahperintah (Request $request)
      {
@@ -261,6 +313,12 @@ class SuratController extends Controller
     }
 
     public function tampilperintah($id)
+    {
+        $surat = Surat::where('id',$id)->get();
+        return view('surats.perintah.cetaksurat', ['surat' => $surat]);
+    }
+
+    public function tampiltembusan($id)
     {
         $surat = Surat::where('id',$id)->get();
         return view('surats.perintah.cetaksurat', ['surat' => $surat]);

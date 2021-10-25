@@ -101,7 +101,7 @@
                             required>Demikian surat permohonan ini kami buat, atas segala perhatian dan partisipasi Bapak/Ibu kami ucapkan terima kasih.</textarea>
               </div>
 
-              <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
+              {{-- <div class="form-group col-xs-12 col-sm-12 col-md-6"><hr>
                 <label for="">Tembusan</label>
                         <input name="tembusan1" type="text" class="form-control bg-light" placeholder="Tembusan 1" >
                 <label for=""></label>
@@ -109,7 +109,7 @@
                 <label for=""></label>
                         <input placeholder="Tembusan 3" name="tembusan3" type="text" class="form-control bg-light">
                         <small  class="form-text text-muted">kosongkan jika tidak ada</small>
-              </div>
+              </div> --}}
 
           </form>
 
